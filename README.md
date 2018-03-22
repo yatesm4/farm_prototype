@@ -16,3 +16,7 @@ Visual Studio 2017 is probably the preferred IDE
 ```
 MonoGame
 ```
+
+##
+
+Hopefully Sam figures this whole thing out lmao
