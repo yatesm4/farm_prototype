@@ -17,7 +17,7 @@ Visual Studio 2017 is probably the preferred IDE
 MonoGame
 ```
 
-Farm game Idea board
+ ### Farm game Idea board ###
 
 Bedroom (tutorial) > Attic > basement > Garage > Barn > Wherehouse > Field
 
