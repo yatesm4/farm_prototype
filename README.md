@@ -17,6 +17,7 @@ Visual Studio 2017 is probably the preferred IDE
 MonoGame
 ```
 
+<<<<<<< HEAD
  ### Farm game Idea board ###
 
 Bedroom (tutorial) > Attic > basement > Garage > Barn > Wherehouse > Field
@@ -73,3 +74,8 @@ You can get busted and lose your current money and weed - even at late game when
 
 selling brings you in $$$ - used to buy more Light Water Soil and Seeds
 	save enough to purchase bigger grow spaces
+=======
+##
+
+Hopefully Sam figures this whole thing out lmao
+>>>>>>> d8c74f239fc0d1e8f01d78c63cd7a83b511d8e2e
