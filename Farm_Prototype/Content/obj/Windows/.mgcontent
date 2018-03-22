@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/_DEV/YESTERDAY_DEV/TESTING/Farm_Prototype/Farm_Prototype/Content/tile_Wood.png</File>
+    <File>C:/_DEV/YESTERDAY_DEV/TESTING/Farm_Prototype/Farm_Prototype/Content/spr_Man.png</File>
+  </SourceFiles>
+</SourceFileCollection>
