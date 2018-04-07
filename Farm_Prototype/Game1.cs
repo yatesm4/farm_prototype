@@ -8,7 +8,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using Farm_Prototype.Physics;
+using Newtonsoft.Json;
+
+using MonoGame.Extended;
+using MonoGame.Extended.Animations;
+using MonoGame.Extended.Tweening;
+
+using Comora;
+
 using Farm_Prototype.Objects;
 
 namespace Farm_Prototype
@@ -20,6 +27,9 @@ namespace Farm_Prototype
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        Camera camera;
+        float cameraZoom = 2.5f;
 
         // Controller settings
 
@@ -43,7 +53,7 @@ namespace Farm_Prototype
 
         // Objects
 
-        Lerper lerp = new Lerper();
+        private KeyboardState keyboardState;
 
         Player player;
 
@@ -74,6 +84,9 @@ namespace Farm_Prototype
 
             position = new Vector2(scr_Width / 2, scr_Height / 2);
 
+            camera = new Camera(this.graphics.GraphicsDevice);
+            camera.Zoom = cameraZoom;
+
             base.Initialize();
         }
 
@@ -87,12 +100,11 @@ namespace Farm_Prototype
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            spr_Man = Content.Load<Texture2D>("spr_Man");
             tile_Wood = Content.Load<Texture2D>("tile_Wood");
 
-            LoadTiles();
-
             LoadPlayer();
+
+            LoadTiles();
         }
 
         private void LoadTiles()
@@ -113,12 +125,8 @@ namespace Farm_Prototype
 
         private void LoadPlayer()
         {
-            player = new Player
-            {
-                sprite = spr_Man,
-                position = new Vector2(scr_Width / 2, scr_Height / 2),
-                scale = new Vector2(3, 3)
-            };
+            player = new Player(Content, new Vector2(scr_Width / 2, scr_Height / 2));
+            player.LoadContent(Content);
         }
 
         /// <summary>
@@ -137,29 +145,26 @@ namespace Farm_Prototype
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             // TODO: Add your update logic here
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                player.position = new Vector2(player.position.X, lerp.Lerp(player.position.Y, player.position.Y - 32));
-            } else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                player.position = new Vector2(player.position.X, lerp.Lerp(player.position.Y, player.position.Y + 32));
-            }
+            HandleInput(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                player.position = new Vector2(lerp.Lerp(player.position.X, player.position.X - 32), player.position.Y);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                player.position = new Vector2(lerp.Lerp(player.position.X, player.position.X + 32), player.position.Y);
-            }
+            player.Update(gameTime, keyboardState);
+
+            camera.Update(gameTime);
+            //camera.Position = Mouse.GetState().Position.ToVector2();
+            
+            camera.Position = player.position;
 
             base.Update(gameTime);
+        }
+
+        void HandleInput(GameTime gameTime)
+        {
+            keyboardState = Keyboard.GetState();
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
         }
 
         /// <summary>
@@ -171,16 +176,15 @@ namespace Farm_Prototype
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-
-            spriteBatch.Begin();
+            spriteBatch.Begin(camera);
 
             foreach(Tile _tile in tile_List)
             {
-                System.Diagnostics.Debug.WriteLine("Tile Position: " + _tile.position);
+                //System.Diagnostics.Debug.WriteLine("Tile Position: " + _tile.position);
                 spriteBatch.Draw(_tile.texture, position: _tile.position, scale: _tile.scale);
             }
 
-            spriteBatch.Draw(player.sprite, position: player.position, scale: player.scale);
+            player.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 
