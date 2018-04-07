@@ -40,6 +40,13 @@ namespace Farm_Prototype.Objects
         }
         bool isLooping;
 
+        public bool IsStill
+        {
+            get { return isStill; }
+            set { isStill = value; }
+        }
+        bool isStill = false;
+
         /// <summary>
         /// Gets the number of frames in the animation.
         /// </summary>

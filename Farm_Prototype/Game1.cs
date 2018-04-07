@@ -56,6 +56,9 @@ namespace Farm_Prototype
         private KeyboardState keyboardState;
 
         Player player;
+        List<Object> allObjectsList = new List<object>();
+        List<Plant> plants = new List<Plant>();
+        int planting_cooldown = 0;
 
         public Game1()
         {
@@ -126,6 +129,7 @@ namespace Farm_Prototype
         private void LoadPlayer()
         {
             player = new Player(Content, new Vector2(scr_Width / 2, scr_Height / 2));
+            allObjectsList.Add(player);
             player.LoadContent(Content);
         }
 
@@ -156,6 +160,8 @@ namespace Farm_Prototype
             
             camera.Position = player.position;
 
+            
+
             base.Update(gameTime);
         }
 
@@ -165,6 +171,20 @@ namespace Farm_Prototype
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if(planting_cooldown <= 0)
+            {
+                if (keyboardState.IsKeyDown(Keys.E))
+                {
+                    allObjectsList.Add(new Plant(Content, player.position));
+                    planting_cooldown += 60;
+                }
+            }
+            
+            if(planting_cooldown > 0)
+            {
+                planting_cooldown--;
+            }
         }
 
         /// <summary>
@@ -184,11 +204,22 @@ namespace Farm_Prototype
                 spriteBatch.Draw(_tile.texture, position: _tile.position, scale: _tile.scale);
             }
 
+            DrawObjects(gameTime, spriteBatch);
+
             player.Draw(gameTime, spriteBatch);
 
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+            foreach(var o in plants)
+            {
+                o.Draw(gameTime, spriteBatch);
+            }
         }
     }
 }

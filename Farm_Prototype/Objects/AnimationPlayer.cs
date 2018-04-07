@@ -26,6 +26,7 @@ namespace Farm_Prototype.Objects
         public int FrameIndex
         {
             get { return frameIndex; }
+            set { frameIndex = value; }
         }
         int frameIndex;
 
@@ -72,13 +73,22 @@ namespace Farm_Prototype.Objects
                 time -= Animation.FrameTime;
 
                 // Advance the frame index; looping or clamping as appropriate.
-                if (Animation.IsLooping)
+                if(Animation.IsStill != true)
                 {
-                    frameIndex = (frameIndex + 1) % Animation.FrameCount;
-                }
-                else
-                {
-                    frameIndex = Math.Min(frameIndex + 1, Animation.FrameCount - 1);
+                    if (Animation.IsLooping)
+                    {
+                        frameIndex = (frameIndex + 1) % Animation.FrameCount;
+                        /* USED TO SKIP FIRST FRAME WHILE MOVING
+                        if(frameIndex == 0)
+                        {
+                            frameIndex++;
+                        }
+                        */
+                    }
+                    else
+                    {
+                        frameIndex = Math.Min(frameIndex + 1, Animation.FrameCount - 1);
+                    }
                 }
             }
 

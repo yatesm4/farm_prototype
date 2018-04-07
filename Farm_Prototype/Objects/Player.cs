@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Farm_Prototype.Objects
 {
@@ -15,14 +17,24 @@ namespace Farm_Prototype.Objects
         private Animation idleAnimation;
         private Animation walkAnimation;
 
-        private Animation southAnimation;
-        private Animation northAnimation;
-        private Animation westAnimation;
-        private Animation eastAnimation;
+        private Animation headAnimation;
+        private Animation southWestBodyAnimation;
+        private Animation northWestBodyAnimation;
+        private Animation southEastBodyAnimation;
+        private Animation northEastBodyAnimation;
 
-        private AnimationPlayer sprite;
+        private AnimationPlayer bodySprite;
+        private AnimationPlayer headSprite;
+        bool headFront = true;
+
+        SoundEffect footstep;
+        int footstepCooldown;
 
         public Vector2 position { get; set; }
+        public int depth
+        {
+            get { return (int)Math.Round(position.Y * -1); }
+        }
         public Vector2 moveDirection { get; set; }
         public Vector2 scale { get; set; } = new Vector2(1, 1);
 
@@ -55,17 +67,30 @@ namespace Farm_Prototype.Objects
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
+            /***
+             * technically you could have the sprite loaded based on custom input, if you have more than 1 character made
+             * and you could load the sprites dynamically like this
+             * int sprite_index = 1;
+             * string spriteSouthWest = "0" + sprite_index + "_SouthWest";
+             * southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/"+spriteSouthWest), 0.13f, true);
+             ***/
+            // Load the spritesheet for each direction
+            southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_SouthWest"), 0.13f, true);
+            southEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_SouthEast"), 0.13f, true);
+            northWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_NorthWest"), 0.13f, true);
+            northEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_NorthEast"), 0.13f, true);
+            // load the head spritesheet
+            headAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Head/01"), 0.1f, false);
+            // set the animation to be still for the head, so we can load each frame in it individually
+            headAnimation.IsStill = true;
 
-            southAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/01_South"), 0.1f, true);
-            northAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/01_North"), 0.1f, true);
-            westAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/01_West"), 0.1f, true);
-            eastAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/01_East"), 0.1f, true);
+            footstep = Content.Load<SoundEffect>("Sounds/Effects/footstep");
 
             // Calculate bounds within texture size.            
-            int width = (int)(southAnimation.FrameWidth * 0.4);
-            int left = (southAnimation.FrameWidth - width) / 2;
-            int height = (int)(southAnimation.FrameWidth * 0.8);
-            int top = southAnimation.FrameHeight - height;
+            int width = (int)(southWestBodyAnimation.FrameWidth * 0.4);
+            int left = (southWestBodyAnimation.FrameWidth - width) / 2;
+            int height = (int)(southWestBodyAnimation.FrameWidth * 0.8);
+            int top = southWestBodyAnimation.FrameHeight - height;
             localBounds = new Rectangle(left, top, width, height);
         }
 
@@ -73,7 +98,8 @@ namespace Farm_Prototype.Objects
         {
             position = reset_position;
             velocity = Vector2.Zero;
-            sprite.PlayAnimation(southAnimation);
+            bodySprite.PlayAnimation(southWestBodyAnimation);
+            headSprite.PlayAnimation(headAnimation);
         }
 
         public void Update(
@@ -87,35 +113,78 @@ namespace Farm_Prototype.Objects
 
         private void GetInput(KeyboardState keyboardState)
         {
+            // reset the movement input
             movement = new Vector2(0, 0);
 
+            // if there is any keyboard movement
             if(keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.D))
             {
+                // set the head to be in front of the body
+                headFront = true;
+
+                // make sure the animation isnt still
+                bodySprite.Animation.IsStill = false;
+
+                // determine movement and sprites based on input
                 if (keyboardState.IsKeyDown(Keys.A))
                 {
+                    // Move Left
                     movement.X = -1.0f;
-                    sprite.PlayAnimation(westAnimation);
+                    bodySprite.PlayAnimation(southWestBodyAnimation);
+                    headSprite.FrameIndex = 2;
                 }
                 else if (keyboardState.IsKeyDown(Keys.D))
                 {
+                    // Move Right
                     movement.X = 1.0f;
-                    sprite.PlayAnimation(eastAnimation);
+                    bodySprite.PlayAnimation(southEastBodyAnimation);
+                    headSprite.FrameIndex = 1;
                 }
 
                 if (keyboardState.IsKeyDown(Keys.W))
                 {
+                    // Move Up
                     movement.Y = -1.0f;
-                    sprite.PlayAnimation(northAnimation);
+                    bodySprite.PlayAnimation(northEastBodyAnimation);
+                    headSprite.FrameIndex = 0;
+                    // Make sure the head renders behind the body sprite 
+                    headFront = false;
                 }
                 else if (keyboardState.IsKeyDown(Keys.S))
                 {
+                    // Move Down
                     movement.Y = 1.0f;
-                    sprite.PlayAnimation(southAnimation);
+                    bodySprite.PlayAnimation(southEastBodyAnimation);
+                    headSprite.FrameIndex = 1;
                 }
-                sprite.Animation.IsLooping = true;
+                // Set the animation loop to true
+                bodySprite.Animation.IsLooping = true;
+
+                // handle footstep sounds
+                // if the footstep cooldown is back to 0
+                if(footstepCooldown <= 0)
+                {
+                    // play a footstep sound and reset the cooldown to 20 update cycles
+                    footstep.Play();
+                    footstepCooldown += 20;
+                }
+                // if the footstep cooldown is above 0
+                if(footstepCooldown > 0)
+                {
+                    // decrement the cooldown
+                    footstepCooldown--;
+                }
+                
             } else
             {
-                sprite.Animation.IsLooping = false;
+                // if there isnt any keyboard input
+                if(bodySprite.Animation.IsLooping == true)
+                {
+                    // set the body sprites animation to still and reset its frameindex to 0, as well as turn of looping
+                    bodySprite.Animation.IsStill = true;
+                    bodySprite.FrameIndex = 0;
+                    bodySprite.Animation.IsLooping = false;
+                }
             }
         }
 
@@ -149,7 +218,15 @@ namespace Farm_Prototype.Objects
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            sprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
+            if(headFront == true)
+            {
+                bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
+                headSprite.Draw(gameTime, spriteBatch, position - new Vector2(0, 11), SpriteEffects.None);
+            } else
+            {
+                headSprite.Draw(gameTime, spriteBatch, position - new Vector2(0, 11), SpriteEffects.None);
+                bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
+            }
         }
     }
 }
