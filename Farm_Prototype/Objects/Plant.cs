@@ -32,7 +32,7 @@ namespace Farm_Prototype.Objects
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
-            growthAnimation = new Animation(Content.Load<Texture2D>("Sprites/Plants/plant_basicweed"), 20f, false);
+            growthAnimation = new Animation(Content.Load<Texture2D>("Sprites/Objects/Plant_Base"), 5f, false);
 
             int width = (int)(growthAnimation.FrameWidth * 0.4);
             int left = (growthAnimation.FrameWidth - width) / 2;

@@ -26,6 +26,7 @@ namespace Farm_Prototype.Objects
         private AnimationPlayer bodySprite;
         private AnimationPlayer headSprite;
         bool headFront = true;
+        bool lastInputWasLeft = true;
 
         SoundEffect footstep;
         int footstepCooldown;
@@ -126,37 +127,101 @@ namespace Farm_Prototype.Objects
                 bodySprite.Animation.IsStill = false;
 
                 // determine movement and sprites based on input
-                if (keyboardState.IsKeyDown(Keys.A))
+
+                // check for key combo first
+                if (keyboardState.IsKeyDown(Keys.A) && keyboardState.IsKeyDown(Keys.W))
                 {
                     // Move Left
-                    movement.X = -1.0f;
+                    movement.X = -0.5f;
+                    movement.Y = -0.5f;
                     bodySprite.PlayAnimation(southWestBodyAnimation);
                     headSprite.FrameIndex = 2;
-                }
-                else if (keyboardState.IsKeyDown(Keys.D))
+                    lastInputWasLeft = true;
+                } else if (keyboardState.IsKeyDown(Keys.A) && keyboardState.IsKeyDown(Keys.S))
+                {
+                    // Move Left
+                    movement.X = -0.5f;
+                    movement.Y = 0.5f;
+                    bodySprite.PlayAnimation(southWestBodyAnimation);
+                    headSprite.FrameIndex = 2;
+                    lastInputWasLeft = true;
+                } else if (keyboardState.IsKeyDown(Keys.D) && keyboardState.IsKeyDown(Keys.W))
                 {
                     // Move Right
-                    movement.X = 1.0f;
+                    movement.X = 0.5f;
+                    movement.Y = -0.5f;
                     bodySprite.PlayAnimation(southEastBodyAnimation);
                     headSprite.FrameIndex = 1;
+                    lastInputWasLeft = false;
+                }
+                else if (keyboardState.IsKeyDown(Keys.D) && keyboardState.IsKeyDown(Keys.S))
+                {
+                    // Move Right
+                    movement.X = 0.5f;
+                    movement.Y = 0.5f;
+                    bodySprite.PlayAnimation(southEastBodyAnimation);
+                    headSprite.FrameIndex = 1;
+                    lastInputWasLeft = false;
+                } else
+                {
+                    // if no key combo
+
+                    if (keyboardState.IsKeyDown(Keys.A))
+                    {
+                        // Move Left
+                        movement.X = -0.5f;
+                        bodySprite.PlayAnimation(southWestBodyAnimation);
+                        headSprite.FrameIndex = 2;
+                        lastInputWasLeft = true;
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.D))
+                    {
+                        // Move Right
+                        movement.X = 0.5f;
+                        bodySprite.PlayAnimation(southEastBodyAnimation);
+                        headSprite.FrameIndex = 1;
+                        lastInputWasLeft = false;
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.W))
+                    {
+                        // Move Up
+                        movement.Y = -0.5f;
+                        if (lastInputWasLeft == true)
+                        {
+                            bodySprite.PlayAnimation(northWestBodyAnimation);
+                            headSprite.FrameIndex = 3;
+                        }
+                        else
+                        {
+                            bodySprite.PlayAnimation(northEastBodyAnimation);
+                            headSprite.FrameIndex = 0;
+                        }
+                        // Make sure the head renders behind the body sprite 
+                        headFront = false;
+                    }
+                    else if (keyboardState.IsKeyDown(Keys.S))
+                    {
+                        // Move Down
+                        movement.Y = 0.5f;
+                        if (lastInputWasLeft == true)
+                        {
+                            bodySprite.PlayAnimation(southWestBodyAnimation);
+                            headSprite.FrameIndex = 2;
+                        }
+                        else
+                        {
+                            bodySprite.PlayAnimation(southEastBodyAnimation);
+                            headSprite.FrameIndex = 1;
+                        }
+
+                    }
                 }
 
-                if (keyboardState.IsKeyDown(Keys.W))
+                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
                 {
-                    // Move Up
-                    movement.Y = -1.0f;
-                    bodySprite.PlayAnimation(northEastBodyAnimation);
-                    headSprite.FrameIndex = 0;
-                    // Make sure the head renders behind the body sprite 
-                    headFront = false;
+                    movement = movement * 2;
                 }
-                else if (keyboardState.IsKeyDown(Keys.S))
-                {
-                    // Move Down
-                    movement.Y = 1.0f;
-                    bodySprite.PlayAnimation(southEastBodyAnimation);
-                    headSprite.FrameIndex = 1;
-                }
+
                 // Set the animation loop to true
                 bodySprite.Animation.IsLooping = true;
 
@@ -174,7 +239,6 @@ namespace Farm_Prototype.Objects
                     // decrement the cooldown
                     footstepCooldown--;
                 }
-                
             } else
             {
                 // if there isnt any keyboard input
@@ -228,5 +292,6 @@ namespace Farm_Prototype.Objects
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
             }
         }
+
     }
 }

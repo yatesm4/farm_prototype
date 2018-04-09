@@ -24,10 +24,17 @@ C:\_DEV\YESTERDAY_DEV\TESTING\Farm_Prototype\Farm_Prototype\obj\x86\Debug\Farm_P
 C:\_DEV\YESTERDAY_DEV\TESTING\Farm_Prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csproj.CoreCompileInputs.cache
 C:\_DEV\YESTERDAY_DEV\TESTING\Farm_Prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.exe
 C:\_DEV\YESTERDAY_DEV\TESTING\Farm_Prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.pdb
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csproj.CoreCompileInputs.cache
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csprojResolveAssemblyReference.cache
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Plants\item_basicbud.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Plants\plant_basicweed.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Objects\Plant_Base.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Floor_Base.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_01.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_01_Floor.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_Base.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Floor_Sidewalk.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Grass.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Road.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Tree.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Head\01.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\01_NorthEast.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\01_NorthWest.xnb
@@ -38,6 +45,7 @@ C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototyp
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_South.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_West.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sounds\Effects\footstep.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Fonts\Font_01.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\spr_Man.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\tile_Wood.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Farm_Prototype.exe
@@ -69,5 +77,7 @@ C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototyp
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csprojResolveAssemblyReference.cache
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csproj.CoreCompileInputs.cache
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.exe
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.pdb

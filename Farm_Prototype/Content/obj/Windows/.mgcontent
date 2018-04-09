@@ -18,5 +18,15 @@
     <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Characters/Body/01_SouthEast.png</File>
     <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Characters/Body/01_SouthWest.png</File>
     <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Characters/Head/01.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Structures/Room_Base.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Structures/Floor_Base.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Fonts/Font_01.spritefont</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Ground_Grass.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Ground_Road.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Floor_Sidewalk.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Structures/Room_01.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Structures/Room_01_Floor.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Objects/Plant_Base.png</File>
+    <File>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Environment/Ground_Tree.png</File>
   </SourceFiles>
 </SourceFileCollection>
