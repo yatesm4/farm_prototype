@@ -21,9 +21,18 @@ namespace Farm_Prototype.Objects
 
         public bool isDecoration { get; set; } = false;
 
+        public Vector2 centerPoint
+        {
+            get { return position + new Vector2(32,44); }
+        }
+
+        public Vector2 tileIndex { get; set; }
+
         public int depth
         {
             get { return (int)Math.Round(position.Y * -1); }
         }
+
+        public bool drawDebug { get; set; } = false;
     }
 }

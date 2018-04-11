@@ -199,13 +199,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Environment/Structures/Floor_Base.png
 
-#begin Fonts/Font_01.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/Font_01.spritefont
-
 #begin Sprites/Environment/Ground_Grass.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -59,11 +59,9 @@ namespace Farm_Prototype
         Texture2D tile_Room_01;
         Texture2D tile_Room_01_Floor;
 
-        SpriteFont font;
-
         // Tiles
 
-        List<Tile> tile_List = new List<Tile>();
+        Tile[,] tile_Arr;
 
         // Objects
 
@@ -130,151 +128,34 @@ namespace Farm_Prototype
             tile_Room_01 = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01");
             tile_Room_01_Floor = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01_Floor");
 
-            font = Content.Load<SpriteFont>("Fonts/Font_01");
+
+            LoadTiles();
 
             LoadPlayer();
 
-            LoadTiles();
         }
 
         private void LoadTiles()
         {
-            for (var i = 0; i < tiles_Height; i++)
+            tile_Arr = new Tile[50, 50];
+            for (var x = 0; x < 50; x++)
             {
-                for (var j = 0; j < tiles_Width; j++)
+                for (var y = 0; y < 50; y++)
                 {
-                    Vector2 pos = new Vector2((j * 64) + (-i * 32), (i * 64) - (i * 48));
-                    System.Diagnostics.Debug.WriteLine("Tile Position: " + pos.ToString());
-                    int rnd_int = rnd.Next(1, 100);
-                    Tile _tile;
-                    if(rnd_int > 30)
+                    tile_Arr[x, y] = new Tile
                     {
-                        _tile = new Tile
-                        {
-                            texture = tile_Grass,
-                            position = pos
-                        };
-                        tile_List.Add(_tile);
-                    }
-                    else
-                    {
-                        if(rnd_int < 15)
-                        {
-                            if(rnd_int < 6)
-                            {
-                                _tile = new Tile
-                                {
-                                    texture = tile_Room_01_Floor,
-                                    position = pos
-                                };
-                                tile_List.Add(_tile);
-                            } else
-                            {
-                                _tile = new Tile
-                                {
-                                    texture = tile_Room_01,
-                                    position = pos
-                                };
-                                tile_List.Add(_tile);
-                            }
-                        } else
-                        {
-                            _tile = new Tile
-                            {
-                                texture = tile_Grass,
-                                position = pos
-                            };
-                            tile_List.Add(_tile);
-
-                            _tile = new Tile
-                            {
-                                texture = tile_Grass_Tree,
-                                isDecoration = true,
-                                position = pos
-                            };
-                            tile_List.Add(_tile);
-                        }
-                    }
+                        texture = tile_Room_01_Floor,
+                        position = new Vector2(x * 32 - y * 32, x * 16 + y * 16),
+                        tileIndex = new Vector2(x, y)
+                    };
                 }
-                tiles_Width++;
             }
-            
-            foreach(Tile t in tile_List)
-            {
-                if(t.texture == tile_Room_01_Floor || t.texture == tile_Room_01)
-                {
-                    try
-                    {
-                        tile_List[tile_List.IndexOf(t) + 10].texture = tile_Sidewalk;
-                    } catch (Exception e)
-                    {
-                        // out of bounds
-                    }
-                }
-                
-            }
-
-            /*
-
-            tile_List[407].texture = tile_Room_01;
-            tile_List[366].texture = tile_Room_01;
-            tile_List[326].texture = tile_Room_01;
-            tile_List[287].texture = tile_Room_01;
-            tile_List[249].texture = tile_Room_01;
-
-            Plant plant;
-            plant = new Plant(Content, tile_List[407].position + new Vector2(32, 64));
-            plants.Add(plant);
-            tile_List[407].innerPlant = plant;
-
-            plant = new Plant(Content, tile_List[366].position + new Vector2(32, 64));
-            plants.Add(plant);
-            tile_List[366].innerPlant = plant;
-
-            plant = new Plant(Content, tile_List[326].position + new Vector2(32, 64));
-            plants.Add(plant);
-            tile_List[326].innerPlant = plant;
-
-            plant = new Plant(Content, tile_List[287].position + new Vector2(32, 64));
-            plants.Add(plant);
-            tile_List[287].innerPlant = plant;
-
-            plant = new Plant(Content, tile_List[249].position + new Vector2(32, 64));
-            plants.Add(plant);
-            tile_List[249].innerPlant = plant;
-
-
-            tile_List[450].texture = tile_Room_01_Floor;
-            tile_List[408].texture = tile_Room_01_Floor;
-            tile_List[367].texture = tile_Room_01_Floor;
-            tile_List[327].texture = tile_Room_01_Floor;
-            tile_List[288].texture = tile_Room_01_Floor;
-
-            tile_List[494].texture = tile_Sidewalk;
-            tile_List[451].texture = tile_Sidewalk;
-            tile_List[409].texture = tile_Sidewalk;
-            tile_List[368].texture = tile_Sidewalk;
-            tile_List[328].texture = tile_Sidewalk;
-
-            tile_List[539].texture = tile_Road;
-            tile_List[495].texture = tile_Road;
-            tile_List[452].texture = tile_Road;
-            tile_List[410].texture = tile_Road;
-            tile_List[369].texture = tile_Road;
-
-            tile_List[585].texture = tile_Sidewalk;
-            tile_List[540].texture = tile_Sidewalk;
-            tile_List[496].texture = tile_Sidewalk;
-            tile_List[453].texture = tile_Sidewalk;
-            tile_List[411].texture = tile_Sidewalk;
-
-            */
 
         }
 
         private void LoadPlayer()
         {
-            player = new Player(Content, new Vector2(scr_Width / 2, scr_Height / 2));
+            player = new Player(Content, tile_Arr[20,20].centerPoint, new Vector2(20,20), tile_Arr);
             allObjectsList.Add(player);
             player.LoadContent(Content);
         }
@@ -344,54 +225,48 @@ namespace Farm_Prototype
             // TODO: Add your drawing code here
             spriteBatch.Begin(camera);
 
+            List<Tile> depthList = new List<Tile>();
 
-            foreach(Tile _tile in tile_List)
+            Texture2D debugRect = new Texture2D(graphics.GraphicsDevice, 32, 32);
+            Color[] colorData = new Color[32 * 32];
+            for (int i = 0; i < colorData.Length; i++) colorData[i] = Color.Red;
+            debugRect.SetData(colorData);
+
+            for(int x = 0; x < 50; x++)
             {
-                //System.Diagnostics.Debug.WriteLine("Tile Position: " + _tile.position);
-                spriteBatch.Draw(_tile.texture, position: _tile.position, scale: _tile.scale, layerDepth: 0.4f);
-                if(_tile.innerPlant != null)
+                for(int y = 0; y < 50; y++)
                 {
-                    _tile.innerPlant.Draw(gameTime, spriteBatch);
-                }
-                if(playerDrawn == false)
-                {
-                    if(_tile.texture == tile_Grass_Tree || _tile.isDecoration == true)
+                    if(tile_Arr[x,y].position.Y + 48 > player.position.Y + 16)
                     {
-                        if ((player.position.Y > _tile.position.Y + 10 && player.position.Y < _tile.position.Y + 64) && (player.position.X > _tile.position.X + 24 && player.position.X < _tile.position.X + 36))
-                        {
-                            playerDrawn = true;
-                            player.Draw(gameTime, spriteBatch);
-                        }
+                        depthList.Add(tile_Arr[x, y]);
                     } else
                     {
-                        if ((player.position.Y > _tile.position.Y + 17 && player.position.Y < _tile.position.Y + 56) && (player.position.X > _tile.position.X + 16 && player.position.X < _tile.position.X + 48))
+                        spriteBatch.Draw(tile_Arr[x, y].texture, position: tile_Arr[x, y].position, layerDepth: 0.4f);
+                        if(tile_Arr[x,y].drawDebug == true)
                         {
-                            playerDrawn = true;
-                            player.Draw(gameTime, spriteBatch);
+                            spriteBatch.Draw(debugRect, tile_Arr[x, y].centerPoint, Color.White);
                         }
                     }
-                    
-                    
                 }
             }
 
-            if(playerDrawn == false)
+            player.Draw(gameTime, spriteBatch);
+
+            foreach(Tile t in depthList)
             {
-                player.Draw(gameTime, spriteBatch);
+                spriteBatch.Draw(t.texture, position: t.position, layerDepth: 0.4f);
             }
 
-            /* DEBUG SHOW TILE INDEX
-             *
-            foreach(Tile _tile in tile_List)
+            for (int x = 0; x < 50; x++)
             {
-                Vector2 textMiddlePoint = font.MeasureString(_tile.position.ToString()) / 2;
-                spriteBatch.DrawString(font, (tile_List.IndexOf(_tile) + 1).ToString(), _tile.position + new Vector2(32, 48), Color.Black, 0, textMiddlePoint, 0.25f, SpriteEffects.None, 0.5f);
+                for (int y = 0; y < 50; y++)
+                {
+                    if (tile_Arr[x, y].drawDebug == true)
+                    {
+                        spriteBatch.Draw(debugRect, tile_Arr[x, y].centerPoint, Color.White);
+                    }
+                }
             }
-            */
-            
-            
-
-            //DrawObjects(gameTime, spriteBatch);
 
 
             spriteBatch.End();

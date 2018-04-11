@@ -14,6 +14,7 @@ namespace Farm_Prototype.Objects
 {
     public class Player
     {
+
         private Animation idleAnimation;
         private Animation walkAnimation;
 
@@ -36,11 +37,22 @@ namespace Farm_Prototype.Objects
         {
             get { return (int)Math.Round(position.Y * -1); }
         }
+
+        Tile[,] gameTiles;
+        public Tile currentTile { get; set; }
+        public Tile destTile { get; set; }
+
+        // movement properties
+        bool isMoving = false;
+        int movementCooldown = 0;
+
         public Vector2 moveDirection { get; set; }
         public Vector2 scale { get; set; } = new Vector2(1, 1);
 
         private Vector2 movement;
         private Vector2 velocity;
+        private float distance;
+        private Vector2 direction;
 
         private const float MoveAcceleration = 8000.0f;
         private const float MaxMoveSpeed = 500.0f;
@@ -60,10 +72,12 @@ namespace Farm_Prototype.Objects
 
         private Rectangle localBounds;
 
-        public Player(Microsoft.Xna.Framework.Content.ContentManager Content, Vector2 _position)
+        public Player(Microsoft.Xna.Framework.Content.ContentManager Content, Vector2 _position, Vector2 tileIndex, Tile[,] tiles)
         {
+            gameTiles = tiles;
+            currentTile = gameTiles[(int)tileIndex.X, (int)tileIndex.Y];
             LoadContent(Content);
-            Reset(_position);
+            Reset(currentTile.centerPoint);
         }
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
@@ -107,9 +121,19 @@ namespace Farm_Prototype.Objects
             GameTime gameTime,
             KeyboardState keyboardState)
         {
-            GetInput(keyboardState);
+            // update player object
+            if(isMoving == false && movementCooldown <= 0)
+            {
+                GetInput(keyboardState);
+            } else if (movementCooldown > 0)
+            {
+                movementCooldown--;
+            }
+            if(isMoving == true)
+            {
+                ApplyPhysics(gameTime);
 
-            ApplyPhysics(gameTime);
+            }
         }
 
         private void GetInput(KeyboardState keyboardState)
@@ -118,7 +142,7 @@ namespace Farm_Prototype.Objects
             movement = new Vector2(0, 0);
 
             // if there is any keyboard movement
-            if(keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.D))
+            if((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.D)) && isMoving == false && movementCooldown <= 0)
             {
                 // set the head to be in front of the body
                 headFront = true;
@@ -126,100 +150,58 @@ namespace Farm_Prototype.Objects
                 // make sure the animation isnt still
                 bodySprite.Animation.IsStill = false;
 
-                // determine movement and sprites based on input
+                if (keyboardState.IsKeyDown(Keys.A))
+                {
+                    // Move Left
+                    movement = new Vector2(-1, 0);
 
-                // check for key combo first
-                if (keyboardState.IsKeyDown(Keys.A) && keyboardState.IsKeyDown(Keys.W))
-                {
-                    // Move Left
-                    movement.X = -0.5f;
-                    movement.Y = -0.5f;
                     bodySprite.PlayAnimation(southWestBodyAnimation);
                     headSprite.FrameIndex = 2;
                     lastInputWasLeft = true;
-                } else if (keyboardState.IsKeyDown(Keys.A) && keyboardState.IsKeyDown(Keys.S))
-                {
-                    // Move Left
-                    movement.X = -0.5f;
-                    movement.Y = 0.5f;
-                    bodySprite.PlayAnimation(southWestBodyAnimation);
-                    headSprite.FrameIndex = 2;
-                    lastInputWasLeft = true;
-                } else if (keyboardState.IsKeyDown(Keys.D) && keyboardState.IsKeyDown(Keys.W))
+                }
+                else if (keyboardState.IsKeyDown(Keys.D))
                 {
                     // Move Right
-                    movement.X = 0.5f;
-                    movement.Y = -0.5f;
+                    movement = new Vector2(1, 0);
+
                     bodySprite.PlayAnimation(southEastBodyAnimation);
                     headSprite.FrameIndex = 1;
                     lastInputWasLeft = false;
                 }
-                else if (keyboardState.IsKeyDown(Keys.D) && keyboardState.IsKeyDown(Keys.S))
+                else if (keyboardState.IsKeyDown(Keys.W))
                 {
-                    // Move Right
-                    movement.X = 0.5f;
-                    movement.Y = 0.5f;
-                    bodySprite.PlayAnimation(southEastBodyAnimation);
-                    headSprite.FrameIndex = 1;
-                    lastInputWasLeft = false;
-                } else
-                {
-                    // if no key combo
+                    // Move Up
+                    movement = new Vector2(0, -1);
 
-                    if (keyboardState.IsKeyDown(Keys.A))
+                    if (lastInputWasLeft == true)
                     {
-                        // Move Left
-                        movement.X = -0.5f;
+                        bodySprite.PlayAnimation(northWestBodyAnimation);
+                        headSprite.FrameIndex = 3;
+                    }
+                    else
+                    {
+                        bodySprite.PlayAnimation(northEastBodyAnimation);
+                        headSprite.FrameIndex = 0;
+                    }
+                    // Make sure the head renders behind the body sprite 
+                    headFront = false;
+                }
+                else if (keyboardState.IsKeyDown(Keys.S))
+                {
+                    // Move Down
+                    movement = new Vector2(0, 1);
+
+                    if (lastInputWasLeft == true)
+                    {
                         bodySprite.PlayAnimation(southWestBodyAnimation);
                         headSprite.FrameIndex = 2;
-                        lastInputWasLeft = true;
                     }
-                    else if (keyboardState.IsKeyDown(Keys.D))
+                    else
                     {
-                        // Move Right
-                        movement.X = 0.5f;
                         bodySprite.PlayAnimation(southEastBodyAnimation);
                         headSprite.FrameIndex = 1;
-                        lastInputWasLeft = false;
                     }
-                    else if (keyboardState.IsKeyDown(Keys.W))
-                    {
-                        // Move Up
-                        movement.Y = -0.5f;
-                        if (lastInputWasLeft == true)
-                        {
-                            bodySprite.PlayAnimation(northWestBodyAnimation);
-                            headSprite.FrameIndex = 3;
-                        }
-                        else
-                        {
-                            bodySprite.PlayAnimation(northEastBodyAnimation);
-                            headSprite.FrameIndex = 0;
-                        }
-                        // Make sure the head renders behind the body sprite 
-                        headFront = false;
-                    }
-                    else if (keyboardState.IsKeyDown(Keys.S))
-                    {
-                        // Move Down
-                        movement.Y = 0.5f;
-                        if (lastInputWasLeft == true)
-                        {
-                            bodySprite.PlayAnimation(southWestBodyAnimation);
-                            headSprite.FrameIndex = 2;
-                        }
-                        else
-                        {
-                            bodySprite.PlayAnimation(southEastBodyAnimation);
-                            headSprite.FrameIndex = 1;
-                        }
 
-                    }
-                }
-
-                if (keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift))
-                {
-                    movement = movement * 2;
                 }
 
                 // Set the animation loop to true
@@ -239,7 +221,24 @@ namespace Farm_Prototype.Objects
                     // decrement the cooldown
                     footstepCooldown--;
                 }
-            } else
+
+                int destX, destY;
+                destX = (int)currentTile.tileIndex.X + (int)movement.X;
+                destY = (int)currentTile.tileIndex.Y + (int)movement.Y;
+                destTile = gameTiles[(destX), (destY)];
+
+                distance = Vector2.Distance(currentTile.centerPoint, destTile.centerPoint);
+                direction = Vector2.Normalize(destTile.centerPoint - currentTile.centerPoint);
+
+                Console.WriteLine("Current Tile: {0}, Destination Tile: {1}", currentTile.tileIndex.ToString(), destTile.tileIndex.ToString());
+                Console.WriteLine("Distance: {0}, Direction: {1}", distance.ToString(), direction.ToString());
+
+                destTile.drawDebug = true;
+
+                isMoving = true;
+                movementCooldown += 25;
+            }
+            else
             {
                 // if there isnt any keyboard input
                 if(bodySprite.Animation.IsLooping == true)
@@ -249,35 +248,8 @@ namespace Farm_Prototype.Objects
                     bodySprite.FrameIndex = 0;
                     bodySprite.Animation.IsLooping = false;
                 }
+                isMoving = false;
             }
-        }
-
-        public void ApplyPhysics(GameTime gameTime)
-        {
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            Vector2 previousPosition = position;
-
-            velocity.X += movement.X * MoveAcceleration * elapsed;
-            velocity.Y += movement.Y * MoveAcceleration * elapsed;
-
-            velocity.X *= GroundDragFactor;
-            velocity.Y *= GroundDragFactor;
-
-            velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
-            velocity.Y = MathHelper.Clamp(velocity.Y, -MaxMoveSpeed, MaxMoveSpeed);
-
-            position += velocity * elapsed;
-            position = new Vector2((float)Math.Round(position.X), (float)Math.Round(position.Y));
-
-            //HandleCollisions();
-
-            // If the collision stopped us from moving, reset the velocity to zero.
-            if (position.X == previousPosition.X)
-                velocity.X = 0;
-
-            if (position.Y == previousPosition.Y)
-                velocity.Y = 0;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -290,6 +262,20 @@ namespace Farm_Prototype.Objects
             {
                 headSprite.Draw(gameTime, spriteBatch, position - new Vector2(0, 11), SpriteEffects.None);
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
+            }
+        }
+
+        public void ApplyPhysics(GameTime gameTime)
+        {
+            position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float current_distance = Vector2.Distance(position, destTile.centerPoint);
+            Console.WriteLine("Current Distance: {0}", current_distance);
+            if(current_distance < 1)
+            {
+                position = destTile.centerPoint;
+                currentTile = destTile;
+                isMoving = false;
+                currentTile.drawDebug = false;
             }
         }
 
