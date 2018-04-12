@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Farm_Prototype.Objects
 {
-    struct AnimationPlayer
+    public struct AnimationPlayer
     {
         /// <summary>
         /// Gets the animation which is currently playing.

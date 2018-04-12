@@ -14,6 +14,7 @@ namespace Farm_Prototype.Objects
 {
     public class Player
     {
+        public AnimationPlayer selectCursor;
 
         private Animation idleAnimation;
         private Animation walkAnimation;
@@ -41,6 +42,7 @@ namespace Farm_Prototype.Objects
         Tile[,] gameTiles;
         public Tile currentTile { get; set; }
         public Tile destTile { get; set; }
+        public Vector2 directionFacing { get; set; } = new Vector2(1, 0);
 
         // movement properties
         bool isMoving = false;
@@ -77,7 +79,7 @@ namespace Farm_Prototype.Objects
             gameTiles = tiles;
             currentTile = gameTiles[(int)tileIndex.X, (int)tileIndex.Y];
             LoadContent(Content);
-            Reset(currentTile.centerPoint);
+            Reset(currentTile.CenterPoint);
         }
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
@@ -90,12 +92,12 @@ namespace Farm_Prototype.Objects
              * southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/"+spriteSouthWest), 0.13f, true);
              ***/
             // Load the spritesheet for each direction
-            southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_SouthWest"), 0.13f, true);
-            southEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_SouthEast"), 0.13f, true);
-            northWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_NorthWest"), 0.13f, true);
-            northEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/01_NorthEast"), 0.13f, true);
+            southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_SouthWest"), 0.15f, true);
+            southEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_SouthEast"), 0.15f, true);
+            northWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_NorthWest"), 0.15f, true);
+            northEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_NorthEast"), 0.15f, true);
             // load the head spritesheet
-            headAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Head/01"), 0.1f, false);
+            headAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Head/02"), 0.1f, false);
             // set the animation to be still for the head, so we can load each frame in it individually
             headAnimation.IsStill = true;
 
@@ -113,8 +115,9 @@ namespace Farm_Prototype.Objects
         {
             position = reset_position;
             velocity = Vector2.Zero;
-            bodySprite.PlayAnimation(southWestBodyAnimation);
             headSprite.PlayAnimation(headAnimation);
+            headSprite.FrameIndex = 1;
+            bodySprite.PlayAnimation(southEastBodyAnimation);
         }
 
         public void Update(
@@ -124,7 +127,11 @@ namespace Farm_Prototype.Objects
             // update player object
             if(isMoving == false && movementCooldown <= 0)
             {
-                GetInput(keyboardState);
+                GetMovementInput(keyboardState);
+                if(isMoving == false)
+                {
+                    GetInteractionInput(keyboardState);
+                }
             } else if (movementCooldown > 0)
             {
                 movementCooldown--;
@@ -134,9 +141,22 @@ namespace Farm_Prototype.Objects
                 ApplyPhysics(gameTime);
 
             }
+
         }
 
-        private void GetInput(KeyboardState keyboardState)
+        private void GetInteractionInput(KeyboardState keyboardState)
+        {
+            if (keyboardState.IsKeyDown(Keys.E))
+            {
+                if (gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileNPC != null)
+                {
+                    // the next tile in the direction the player is facing contains an NPC
+                    Console.WriteLine("You are facing an NPC at tile: {0}", gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileIndex.ToString());
+                }
+            }
+        }
+
+        private void GetMovementInput(KeyboardState keyboardState)
         {
             // reset the movement input
             movement = new Vector2(0, 0);
@@ -154,16 +174,14 @@ namespace Farm_Prototype.Objects
                 {
                     // Move Left
                     movement = new Vector2(-1, 0);
-
-                    bodySprite.PlayAnimation(southWestBodyAnimation);
-                    headSprite.FrameIndex = 2;
+                    bodySprite.PlayAnimation(northWestBodyAnimation);
+                    headSprite.FrameIndex = 3;
                     lastInputWasLeft = true;
                 }
                 else if (keyboardState.IsKeyDown(Keys.D))
                 {
                     // Move Right
                     movement = new Vector2(1, 0);
-
                     bodySprite.PlayAnimation(southEastBodyAnimation);
                     headSprite.FrameIndex = 1;
                     lastInputWasLeft = false;
@@ -172,17 +190,8 @@ namespace Farm_Prototype.Objects
                 {
                     // Move Up
                     movement = new Vector2(0, -1);
-
-                    if (lastInputWasLeft == true)
-                    {
-                        bodySprite.PlayAnimation(northWestBodyAnimation);
-                        headSprite.FrameIndex = 3;
-                    }
-                    else
-                    {
-                        bodySprite.PlayAnimation(northEastBodyAnimation);
-                        headSprite.FrameIndex = 0;
-                    }
+                    bodySprite.PlayAnimation(northEastBodyAnimation);
+                    headSprite.FrameIndex = 0;
                     // Make sure the head renders behind the body sprite 
                     headFront = false;
                 }
@@ -190,18 +199,17 @@ namespace Farm_Prototype.Objects
                 {
                     // Move Down
                     movement = new Vector2(0, 1);
+                    bodySprite.PlayAnimation(southWestBodyAnimation);
+                    headSprite.FrameIndex = 2;
 
-                    if (lastInputWasLeft == true)
-                    {
-                        bodySprite.PlayAnimation(southWestBodyAnimation);
-                        headSprite.FrameIndex = 2;
-                    }
-                    else
-                    {
-                        bodySprite.PlayAnimation(southEastBodyAnimation);
-                        headSprite.FrameIndex = 1;
-                    }
+                }
 
+                if (keyboardState.IsKeyDown(Keys.LeftShift) && keyboardState.IsKeyDown(Keys.RightShift))
+                {
+                    movement *= 3;
+                } else if (keyboardState.IsKeyDown(Keys.LeftShift))
+                {
+                    movement *= 2;
                 }
 
                 // Set the animation loop to true
@@ -222,21 +230,7 @@ namespace Farm_Prototype.Objects
                     footstepCooldown--;
                 }
 
-                int destX, destY;
-                destX = (int)currentTile.tileIndex.X + (int)movement.X;
-                destY = (int)currentTile.tileIndex.Y + (int)movement.Y;
-                destTile = gameTiles[(destX), (destY)];
-
-                distance = Vector2.Distance(currentTile.centerPoint, destTile.centerPoint);
-                direction = Vector2.Normalize(destTile.centerPoint - currentTile.centerPoint);
-
-                Console.WriteLine("Current Tile: {0}, Destination Tile: {1}", currentTile.tileIndex.ToString(), destTile.tileIndex.ToString());
-                Console.WriteLine("Distance: {0}, Direction: {1}", distance.ToString(), direction.ToString());
-
-                destTile.drawDebug = true;
-
-                isMoving = true;
-                movementCooldown += 25;
+                HandleNextTile();
             }
             else
             {
@@ -263,20 +257,83 @@ namespace Farm_Prototype.Objects
                 headSprite.Draw(gameTime, spriteBatch, position - new Vector2(0, 11), SpriteEffects.None);
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
             }
+
+            if(directionFacing != Vector2.Zero)
+            {
+                Tile selectTile = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
+                selectCursor.Draw(gameTime, spriteBatch, selectTile.CenterPoint - new Vector2(0, 20), SpriteEffects.None);
+            }
+        }
+
+        public void HandleNextTile()
+        {
+            directionFacing = movement;
+
+            int destX, destY;
+            destX = (int)currentTile.TileIndex.X + (int)movement.X;
+            destY = (int)currentTile.TileIndex.Y + (int)movement.Y;
+
+            if (destX >= 49 || destY >= 49 || destX <= 0 || destY <= 0)
+            {
+                // movement is outside of map bounds
+                gameTiles[(destX), (destY)].ShowOutline = true;
+                gameTiles[(destX), (destY)].OutlineCooldown = 25;
+                return;
+            }
+
+            destTile = gameTiles[(destX), (destY)];
+
+            if (destTile.TileNPC != null || destTile.InnerTexture != null)
+            {
+
+                destTile.ShowOutline = true;
+                destTile.OutlineCooldown = 25;
+                destTile = null;
+                return;
+            }
+
+            distance = Vector2.Distance(currentTile.CenterPoint, destTile.CenterPoint);
+            direction = Vector2.Normalize(destTile.CenterPoint - currentTile.CenterPoint);
+            destTile.DrawDebug = true;
+            isMoving = true;
+            movementCooldown += 25;
         }
 
         public void ApplyPhysics(GameTime gameTime)
         {
             position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float current_distance = Vector2.Distance(position, destTile.centerPoint);
-            Console.WriteLine("Current Distance: {0}", current_distance);
+            float current_distance = Vector2.Distance(position, destTile.CenterPoint);
             if(current_distance < 1)
             {
-                position = destTile.centerPoint;
+                position = destTile.CenterPoint;
                 currentTile = destTile;
                 isMoving = false;
-                currentTile.drawDebug = false;
+                currentTile.DrawDebug = false;
             }
+        }
+
+        void DebugDirection()
+        {
+            string dir = "SOUTHWEST";
+            switch (directionFacing.X)
+            {
+                case -1:
+                    dir = "NORTHWEST";
+                    break;
+                case 1:
+                    dir = "SOUTHEAST";
+                    break;
+            }
+            switch (directionFacing.Y)
+            {
+                case -1:
+                    dir = "NORTHEAST";
+                    break;
+                case 1:
+                    dir = "SOUTHWEST";
+                    break;
+            }
+            Console.WriteLine("Direction facing {0}", dir);
         }
 
     }

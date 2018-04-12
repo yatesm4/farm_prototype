@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Farm_Prototype.Objects
 {
-    class Animation
+    public class Animation
     {
         /// <summary>
         /// All frames in the animation arranged horizontally.

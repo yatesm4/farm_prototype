@@ -46,8 +46,15 @@ namespace Farm_Prototype
 
         // Sprites
 
+        private Objects.Animation selectArrowAnimation;
+        private AnimationPlayer selectArrowSprite;
+
+        SpriteFont sprFont;
+
         Texture2D spr_Man;
         Texture2D tile_Wood;
+
+        Texture2D tile_Glow;
 
         Texture2D tile_Grass;
         Texture2D tile_Grass_Tree;
@@ -59,8 +66,11 @@ namespace Farm_Prototype
         Texture2D tile_Room_01;
         Texture2D tile_Room_01_Floor;
 
+        Texture2D tile_Grass_Bench;
+
         // Tiles
 
+        Map game_Map;
         Tile[,] tile_Arr;
 
         // Objects
@@ -114,50 +124,72 @@ namespace Farm_Prototype
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            selectArrowAnimation = new Objects.Animation(Content.Load<Texture2D>("Sprites/UI/UI_DownArrow"), 0.1f, true);
+            selectArrowSprite.PlayAnimation(selectArrowAnimation);
+
+            Texture2D[] textures_Arr = new Texture2D[8];
+
             // TODO: use this.Content to load your game content here
             tile_Wood = Content.Load<Texture2D>("tile_Wood");
 
-            tile_Grass = Content.Load<Texture2D>("Sprites/Environment/Ground_Grass");
-            tile_Grass_Tree = Content.Load<Texture2D>("Sprites/Environment/Ground_Tree");
-            tile_Road = Content.Load<Texture2D>("Sprites/Environment/Ground_Road");
-            tile_Sidewalk = Content.Load<Texture2D>("Sprites/Environment/Floor_Sidewalk");
-            
+            textures_Arr[0] = tile_Glow = Content.Load<Texture2D>("Sprites/Environment/Ground_Glow");
+
+            textures_Arr[1] = tile_Grass = Content.Load<Texture2D>("Sprites/Environment/Ground_Grass");
+            textures_Arr[2] = tile_Grass_Tree = Content.Load<Texture2D>("Sprites/Environment/Ground_Tree");
+            textures_Arr[3] = tile_Road = Content.Load<Texture2D>("Sprites/Environment/Ground_Road");
+            textures_Arr[4] = tile_Sidewalk = Content.Load<Texture2D>("Sprites/Environment/Floor_Sidewalk");
+
             tile_Room = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_Base");
             tile_Floor = Content.Load<Texture2D>("Sprites/Environment/Structures/Floor_Base");
 
-            tile_Room_01 = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01");
-            tile_Room_01_Floor = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01_Floor");
+            textures_Arr[5] = tile_Room_01 = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01");
+            textures_Arr[6] = tile_Room_01_Floor = Content.Load<Texture2D>("Sprites/Environment/Structures/Room_01_Floor");
+
+            textures_Arr[7] = tile_Grass_Bench = Content.Load<Texture2D>("Sprites/Environment/Ground_Grass_Bench");
 
 
-            LoadTiles();
+
+            sprFont = Content.Load<SpriteFont>("Fonts/Font_01");
+
+            LoadMap(textures_Arr);
 
             LoadPlayer();
-
         }
 
-        private void LoadTiles()
+        private void LoadMap(Texture2D[] textures_)
         {
+            
             tile_Arr = new Tile[50, 50];
             for (var x = 0; x < 50; x++)
             {
                 for (var y = 0; y < 50; y++)
                 {
-                    tile_Arr[x, y] = new Tile
+                    if (rnd.Next(1, 100) > 10)
                     {
-                        texture = tile_Room_01_Floor,
-                        position = new Vector2(x * 32 - y * 32, x * 16 + y * 16),
-                        tileIndex = new Vector2(x, y)
-                    };
+                        tile_Arr[x, y] = new Tile(tile_Grass, new Vector2(x * 32 - y * 32, x * 16 + y * 16), new Vector2(x, y));
+                    } else
+                    {
+                        if(rnd.Next(1,100) > 90)
+                        {
+                            tile_Arr[x, y] = new Tile(tile_Grass_Bench, new Vector2(x * 32 - y * 32, x * 16 + y * 16), new Vector2(x, y));
+                            tile_Arr[x, y].TileNPC = new NPC(Content, 1, 3, tile_Arr[x, y].TileIndex, tile_Arr);
+                        }
+                        else
+                        {
+                            tile_Arr[x, y] = new Tile(tile_Grass, new Vector2(x * 32 - y * 32, x * 16 + y * 16), new Vector2(x, y), tile_Grass_Tree);
+                        }
+                    }
+                    tile_Arr[x, y].OutlineTexture = tile_Glow;
                 }
             }
-
+            game_Map = new Map(tile_Arr, 50, 50, 64, 64, textures_, sprFont);
         }
 
         private void LoadPlayer()
         {
-            player = new Player(Content, tile_Arr[20,20].centerPoint, new Vector2(20,20), tile_Arr);
-            allObjectsList.Add(player);
+            player = new Player(Content, tile_Arr[20,20].CenterPoint, new Vector2(20,20), tile_Arr);
             player.LoadContent(Content);
+            player.selectCursor = selectArrowSprite;
         }
 
         /// <summary>
@@ -179,16 +211,11 @@ namespace Farm_Prototype
             // TODO: Add your update logic here
 
             HandleInput(gameTime);
-
+            game_Map.Update(gameTime, keyboardState);
             player.Update(gameTime, keyboardState);
-
             camera.Update(gameTime);
             //camera.Position = Mouse.GetState().Position.ToVector2();
-            
             camera.Position = player.position;
-
-            
-
             base.Update(gameTime);
         }
 
@@ -199,6 +226,7 @@ namespace Farm_Prototype
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            /*
             if(planting_cooldown <= 0)
             {
                 if (keyboardState.IsKeyDown(Keys.E))
@@ -212,6 +240,7 @@ namespace Farm_Prototype
             {
                 planting_cooldown--;
             }
+            */
         }
 
         /// <summary>
@@ -225,80 +254,11 @@ namespace Farm_Prototype
             // TODO: Add your drawing code here
             spriteBatch.Begin(camera);
 
-            List<Tile> depthList = new List<Tile>();
-
-            Texture2D debugRect = new Texture2D(graphics.GraphicsDevice, 32, 32);
-            Color[] colorData = new Color[32 * 32];
-            for (int i = 0; i < colorData.Length; i++) colorData[i] = Color.Red;
-            debugRect.SetData(colorData);
-
-            for(int x = 0; x < 50; x++)
-            {
-                for(int y = 0; y < 50; y++)
-                {
-                    if(tile_Arr[x,y].position.Y + 48 > player.position.Y + 16)
-                    {
-                        depthList.Add(tile_Arr[x, y]);
-                    } else
-                    {
-                        spriteBatch.Draw(tile_Arr[x, y].texture, position: tile_Arr[x, y].position, layerDepth: 0.4f);
-                        if(tile_Arr[x,y].drawDebug == true)
-                        {
-                            spriteBatch.Draw(debugRect, tile_Arr[x, y].centerPoint, Color.White);
-                        }
-                    }
-                }
-            }
-
-            player.Draw(gameTime, spriteBatch);
-
-            foreach(Tile t in depthList)
-            {
-                spriteBatch.Draw(t.texture, position: t.position, layerDepth: 0.4f);
-            }
-
-            for (int x = 0; x < 50; x++)
-            {
-                for (int y = 0; y < 50; y++)
-                {
-                    if (tile_Arr[x, y].drawDebug == true)
-                    {
-                        spriteBatch.Draw(debugRect, tile_Arr[x, y].centerPoint, Color.White);
-                    }
-                }
-            }
-
+            game_Map.Draw(gameTime, spriteBatch, player);
 
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        void DrawObjects(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-
-            foreach(var o in plants)
-            {
-                o.Draw(gameTime, spriteBatch);
-            }
-        }
-
-        public static bool IsInPolygon(Point[] poly, Point point)
-        {
-            var coef = poly.Skip(1).Select((p, i) =>
-                                            (point.Y - poly[i].Y) * (p.X - poly[i].X)
-                                          - (point.X - poly[i].X) * (p.Y - poly[i].Y))
-                                    .ToList();
-
-            if (coef.Any(p => p == 0))
-                return true;
-
-            for (int i = 1; i < coef.Count(); i++)
-            {
-                if (coef[i] * coef[i - 1] < 0)
-                    return false;
-            }
-            return true;
         }
     }
 }

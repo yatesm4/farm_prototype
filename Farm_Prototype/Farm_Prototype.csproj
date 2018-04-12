@@ -44,6 +44,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Objects\Animation.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
+    <Compile Include="Objects\Map.cs" />
+    <Compile Include="Objects\NPC.cs" />
     <Compile Include="Objects\Plant.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Tile.cs" />

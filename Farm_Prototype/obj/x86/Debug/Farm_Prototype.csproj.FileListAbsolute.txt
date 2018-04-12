@@ -40,10 +40,6 @@ C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototyp
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\01_NorthWest.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\01_SouthEast.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\01_SouthWest.xnb
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_East.xnb
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_North.xnb
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_South.xnb
-C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\01_West.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sounds\Effects\footstep.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Fonts\Font_01.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\spr_Man.xnb
@@ -139,3 +135,15 @@ C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototyp
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csproj.CopyComplete
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.exe
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.pdb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Head\02.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Head\Smoke_Left.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Head\Smoke_Right.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_NorthEast.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_NorthWest.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_SouthEast.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_SouthWest.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Grass_Bench.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\NPCs\01.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Head\03.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Glow.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_DownArrow.xnb
