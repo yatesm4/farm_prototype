@@ -14,6 +14,8 @@ namespace Farm_Prototype.Objects
 {
     public class Player
     {
+        #region SPRITE / DRAW PROPS
+        // sprite / draw properties
         public AnimationPlayer selectCursor;
 
         private Animation idleAnimation;
@@ -27,61 +29,67 @@ namespace Farm_Prototype.Objects
 
         private AnimationPlayer bodySprite;
         private AnimationPlayer headSprite;
+
         bool headFront = true;
         bool lastInputWasLeft = true;
+        #endregion
 
+        #region SOUND PROPS
+        // sound properties
         SoundEffect footstep;
         int footstepCooldown;
+        #endregion
 
+        #region TILE PROPS
+        // tile properties
+        Tile[,] gameTiles;
+        public Tile currentTile { get; set; }
+        public Tile destTile { get; set; }
+        public Vector2 directionFacing { get; set; } = new Vector2(1, 0);
+        #endregion
+
+        #region MOVEMENT PROPS
+        // movement properties
         public Vector2 position { get; set; }
         public int depth
         {
             get { return (int)Math.Round(position.Y * -1); }
         }
 
-        Tile[,] gameTiles;
-        public Tile currentTile { get; set; }
-        public Tile destTile { get; set; }
-        public Vector2 directionFacing { get; set; } = new Vector2(1, 0);
-
-        // movement properties
         bool isMoving = false;
         int movementCooldown = 0;
-
-        public Vector2 moveDirection { get; set; }
-        public Vector2 scale { get; set; } = new Vector2(1, 1);
 
         private Vector2 movement;
         private Vector2 velocity;
         private float distance;
         private Vector2 direction;
 
-        private const float MoveAcceleration = 8000.0f;
-        private const float MaxMoveSpeed = 500.0f;
-        private const float GroundDragFactor = 0.48f;
-        private const float AirDragFactor = 0.58f;
-
-        // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.35f;
-        private const float JumpLaunchVelocity = -3500.0f;
-        private const float GravityAcceleration = 3400.0f;
-        private const float MaxFallSpeed = 550.0f;
-        private const float JumpControlPower = 0.14f;
-
-        // Input configuration
-        private const float MoveStickScale = 1.0f;
-        private const float AccelerometerScale = 1.5f;
-
         private Rectangle localBounds;
+        #endregion
 
+        #region INVENTORY PROPS
+        // inventory properties
+        private PlayerInventory playerInventory { get; set; }
+        #endregion
+
+        #region INTERACTION PROPS
+        private int interactionCooldown = 0;
+        #endregion
+
+        #region CONSTRUCTOR
         public Player(Microsoft.Xna.Framework.Content.ContentManager Content, Vector2 _position, Vector2 tileIndex, Tile[,] tiles)
         {
             gameTiles = tiles;
             currentTile = gameTiles[(int)tileIndex.X, (int)tileIndex.Y];
             LoadContent(Content);
             Reset(currentTile.CenterPoint);
-        }
 
+            // load inventory
+            playerInventory = new PlayerInventory(50, 1000);
+        }
+        #endregion
+
+        #region LOAD
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
         {
             /***
@@ -119,7 +127,9 @@ namespace Farm_Prototype.Objects
             headSprite.FrameIndex = 1;
             bodySprite.PlayAnimation(southEastBodyAnimation);
         }
+        #endregion
 
+        #region UPDATE
         public void Update(
             GameTime gameTime,
             KeyboardState keyboardState)
@@ -143,17 +153,39 @@ namespace Farm_Prototype.Objects
             }
 
         }
+        #endregion
 
+        #region HANDLE INPUT
         private void GetInteractionInput(KeyboardState keyboardState)
         {
-            if (keyboardState.IsKeyDown(Keys.E))
+            if(interactionCooldown <= 0)
             {
-                if (gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileNPC != null)
+                if (keyboardState.IsKeyDown(Keys.E))
                 {
-                    // the next tile in the direction the player is facing contains an NPC
-                    Console.WriteLine("You are facing an NPC at tile: {0}", gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileIndex.ToString());
+                    if (gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileNPC != null)
+                    {
+                        HandleNPCInteraction(gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y]);
+                        // the next tile in the direction the player is facing contains an NPC
+                    }
                 }
+            } else
+            {
+                interactionCooldown--;
             }
+            
+        }
+
+        private void HandleNPCInteraction(Tile npcTile)
+        {
+            if(npcTile.TileNPC is Vendor)
+            {
+                Console.WriteLine("Interacted with a Vendor NPC at tile: {0}", npcTile.TileIndex.X, npcTile.TileIndex.Y);
+            }
+            else
+            {
+                Console.WriteLine("Interacted with an NPC at tile: {0}", npcTile.TileIndex.X, npcTile.TileIndex.Y);
+            }
+            interactionCooldown += 25;
         }
 
         private void GetMovementInput(KeyboardState keyboardState)
@@ -176,7 +208,7 @@ namespace Farm_Prototype.Objects
                     movement = new Vector2(-1, 0);
                     bodySprite.PlayAnimation(northWestBodyAnimation);
                     headSprite.FrameIndex = 3;
-                    lastInputWasLeft = true;
+                    headFront = false;
                 }
                 else if (keyboardState.IsKeyDown(Keys.D))
                 {
@@ -184,7 +216,6 @@ namespace Farm_Prototype.Objects
                     movement = new Vector2(1, 0);
                     bodySprite.PlayAnimation(southEastBodyAnimation);
                     headSprite.FrameIndex = 1;
-                    lastInputWasLeft = false;
                 }
                 else if (keyboardState.IsKeyDown(Keys.W))
                 {
@@ -203,6 +234,8 @@ namespace Farm_Prototype.Objects
                     headSprite.FrameIndex = 2;
 
                 }
+
+                directionFacing = movement;
 
                 if (keyboardState.IsKeyDown(Keys.LeftShift) && keyboardState.IsKeyDown(Keys.RightShift))
                 {
@@ -245,7 +278,9 @@ namespace Farm_Prototype.Objects
                 isMoving = false;
             }
         }
+        #endregion
 
+        #region DRAW
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if(headFront == true)
@@ -257,18 +292,27 @@ namespace Farm_Prototype.Objects
                 headSprite.Draw(gameTime, spriteBatch, position - new Vector2(0, 11), SpriteEffects.None);
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);
             }
-
-            if(directionFacing != Vector2.Zero)
-            {
-                Tile selectTile = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
-                selectCursor.Draw(gameTime, spriteBatch, selectTile.CenterPoint - new Vector2(0, 20), SpriteEffects.None);
-            }
         }
 
+        public void DrawCursor(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            try
+            {
+                if (directionFacing != Vector2.Zero && isMoving == false)
+                {
+                    Tile selectTile = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
+                    selectCursor.Draw(gameTime, spriteBatch, selectTile.CenterPoint - new Vector2(0, 20), SpriteEffects.None);
+                }
+            } catch (Exception e)
+            {
+                // cant place select cursor over tile
+            }
+        }
+        #endregion
+
+        #region HANDLE TILES
         public void HandleNextTile()
         {
-            directionFacing = movement;
-
             int destX, destY;
             destX = (int)currentTile.TileIndex.X + (int)movement.X;
             destY = (int)currentTile.TileIndex.Y + (int)movement.Y;
@@ -276,8 +320,6 @@ namespace Farm_Prototype.Objects
             if (destX >= 49 || destY >= 49 || destX <= 0 || destY <= 0)
             {
                 // movement is outside of map bounds
-                gameTiles[(destX), (destY)].ShowOutline = true;
-                gameTiles[(destX), (destY)].OutlineCooldown = 25;
                 return;
             }
 
@@ -298,7 +340,9 @@ namespace Farm_Prototype.Objects
             isMoving = true;
             movementCooldown += 25;
         }
+        #endregion
 
+        #region PHYSICS
         public void ApplyPhysics(GameTime gameTime)
         {
             position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -311,7 +355,9 @@ namespace Farm_Prototype.Objects
                 currentTile.DrawDebug = false;
             }
         }
+        #endregion
 
+        #region DEBUG
         void DebugDirection()
         {
             string dir = "SOUTHWEST";
@@ -335,6 +381,7 @@ namespace Farm_Prototype.Objects
             }
             Console.WriteLine("Direction facing {0}", dir);
         }
+        #endregion
 
     }
 }

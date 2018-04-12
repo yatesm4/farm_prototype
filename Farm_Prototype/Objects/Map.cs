@@ -22,9 +22,9 @@ namespace Farm_Prototype.Objects
         int width, height, tw, th;
         Texture2D[] textures;
 
-        SpriteFont font;
+        //SpriteFont font;
 
-        public Map(Tile[,] tiles_, int width_, int height_, int tx_, int ty_, Texture2D[] textures_, SpriteFont font_)
+        public Map(Tile[,] tiles_, int width_, int height_, int tx_, int ty_, Texture2D[] textures_)
         {
             Tiles = tiles_;
             width = width_;
@@ -32,7 +32,7 @@ namespace Farm_Prototype.Objects
             tw = tx_;
             th = ty_;
             textures = textures_;
-            font = font_;
+            //font = font_;
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboardState)
@@ -106,6 +106,8 @@ namespace Farm_Prototype.Objects
                 }
 
             }
+
+            player_.DrawCursor(gameTime, spriteBatch);
 
             /*
             for (int x = 0; x < 50; x++)

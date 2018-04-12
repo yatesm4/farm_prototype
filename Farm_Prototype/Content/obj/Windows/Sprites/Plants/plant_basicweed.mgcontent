@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Plants/plant_basicweed.png</SourceFile>
-  <SourceTime>2018-04-11T18:04:24.3143493-04:00</SourceTime>
-  <DestFile>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/bin/Windows/Sprites/Plants/plant_basicweed.xnb</DestFile>
-  <DestTime>2018-04-11T18:04:52.1538129-04:00</DestTime>
+  <SourceFile>C:/_SourceControl/SELF/farm_prototype/Farm_Prototype/Content/Sprites/Plants/plant_basicweed.png</SourceFile>
+  <SourceTime>2018-04-11T10:36:39.6347761-04:00</SourceTime>
+  <DestFile>C:/_SourceControl/SELF/farm_prototype/Farm_Prototype/Content/bin/Windows/Sprites/Plants/plant_basicweed.xnb</DestFile>
+  <DestTime>2018-04-12T11:24:17.2757264-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

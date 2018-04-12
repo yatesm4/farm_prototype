@@ -49,7 +49,7 @@ namespace Farm_Prototype
         private Objects.Animation selectArrowAnimation;
         private AnimationPlayer selectArrowSprite;
 
-        SpriteFont sprFont;
+        //SpriteFont sprFont;
 
         Texture2D spr_Man;
         Texture2D tile_Wood;
@@ -149,7 +149,7 @@ namespace Farm_Prototype
 
 
 
-            sprFont = Content.Load<SpriteFont>("Fonts/Font_01");
+            //sprFont = Content.Load<SpriteFont>("Fonts/Font_01");
 
             LoadMap(textures_Arr);
 
@@ -169,10 +169,16 @@ namespace Farm_Prototype
                         tile_Arr[x, y] = new Tile(tile_Grass, new Vector2(x * 32 - y * 32, x * 16 + y * 16), new Vector2(x, y));
                     } else
                     {
-                        if(rnd.Next(1,100) > 90)
+                        if(rnd.Next(1,100) > 50)
                         {
                             tile_Arr[x, y] = new Tile(tile_Grass_Bench, new Vector2(x * 32 - y * 32, x * 16 + y * 16), new Vector2(x, y));
-                            tile_Arr[x, y].TileNPC = new NPC(Content, 1, 3, tile_Arr[x, y].TileIndex, tile_Arr);
+                            if(rnd.Next(1,10) > 5)
+                            {
+                                tile_Arr[x, y].TileNPC = new NPC(Content, 1, 2, tile_Arr[x, y].TileIndex, tile_Arr);
+                            } else
+                            {
+                                tile_Arr[x, y].TileNPC = new Vendor(Content, 1, 3, tile_Arr[x, y].TileIndex, tile_Arr);
+                            }
                         }
                         else
                         {
@@ -182,7 +188,7 @@ namespace Farm_Prototype
                     tile_Arr[x, y].OutlineTexture = tile_Glow;
                 }
             }
-            game_Map = new Map(tile_Arr, 50, 50, 64, 64, textures_, sprFont);
+            game_Map = new Map(tile_Arr, 50, 50, 64, 64, textures_);
         }
 
         private void LoadPlayer()
