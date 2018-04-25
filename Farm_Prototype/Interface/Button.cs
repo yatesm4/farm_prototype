@@ -36,7 +36,7 @@ namespace Farm_Prototype.Interface
 
         public Vector2 Position { get; set; }
 
-        public Vector2 Scale { get; set; } = new Vector2(2f, 2f);
+        public Vector2 Scale { get; set; } = new Vector2(1.5f, 1.5f);
 
         // used for collision
         public Rectangle Rectangle

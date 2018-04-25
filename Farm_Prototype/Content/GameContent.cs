@@ -143,6 +143,7 @@ namespace Farm_Prototype.Content
             _content = content;
 
             LoadUITextures();
+            LoadFonts();
             LoadTileTextures();
             LoadHeadTextures();
             LoadBodyTextures();

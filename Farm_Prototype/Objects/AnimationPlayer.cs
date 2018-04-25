@@ -43,6 +43,8 @@ namespace Farm_Prototype.Objects
             get { return new Vector2(Animation.FrameWidth / 2.0f, Animation.FrameHeight); }
         }
 
+        public float Scale { get; set; }
+
         /// <summary>
         /// Begins or continues playback of an animation.
         /// </summary>
@@ -56,6 +58,10 @@ namespace Farm_Prototype.Objects
             this.animation = animation;
             this.frameIndex = 0;
             this.time = 0.0f;
+            if(Scale.Equals(null) || Scale.Equals(0.0f))
+            {
+                Scale = 1.0f;
+            }
         }
 
         /// <summary>
@@ -96,7 +102,7 @@ namespace Farm_Prototype.Objects
             Rectangle source = new Rectangle(FrameIndex * Animation.Texture.Height, 0, Animation.Texture.Height, Animation.Texture.Height);
 
             // Draw the current frame.
-            spriteBatch.Draw(Animation.Texture, position, source, Color.White, 0.0f, Origin, 1.0f, spriteEffects, 0.0f);
+            spriteBatch.Draw(Animation.Texture, position, source, Color.White, 0.0f, Origin, Scale, spriteEffects, 0.0f);
         }
     }
 }

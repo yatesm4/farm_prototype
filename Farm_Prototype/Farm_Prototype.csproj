@@ -45,6 +45,7 @@
     <Compile Include="Content\GameContent.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="Interface\Button.cs" />
+    <Compile Include="Interface\GridCell.cs" />
     <Compile Include="Objects\Animation.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
     <Compile Include="Objects\Item.cs" />
@@ -58,8 +59,11 @@
     <Compile Include="Objects\Vendor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\EditMapsListState.cs" />
+    <Compile Include="States\EditMapState.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\MenuState.cs" />
+    <Compile Include="States\SplashScreenState.cs" />
     <Compile Include="States\State.cs" />
   </ItemGroup>
   <ItemGroup>

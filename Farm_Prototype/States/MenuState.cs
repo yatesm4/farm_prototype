@@ -24,7 +24,7 @@ namespace Farm_Prototype.States
 
             var newGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 100),
+                Position = new Vector2(50, 50),
                 Text = "New Game",
                 HoverColor = Color.Red
             };
@@ -32,15 +32,23 @@ namespace Farm_Prototype.States
 
             var loadGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 200),
+                Position = new Vector2(50, 150),
                 Text = "Load Game",
                 HoverColor = Color.Orange
             };
             loadGameButton.Click += LoadGameButton_Click;
 
+            var editMapButton = new Button(buttonTexture, buttonFont)
+            {
+                Position = new Vector2(50, 250),
+                Text = "Edit Map",
+                HoverColor = Color.Yellow
+            };
+            editMapButton.Click += EditMapButton_Click;
+
             var quitGameButton = new Button(buttonTexture, buttonFont)
             {
-                Position = new Vector2(300, 300),
+                Position = new Vector2(50, 350),
                 Text = "Quit Game",
                 HoverColor = Color.Green
             };
@@ -50,6 +58,7 @@ namespace Farm_Prototype.States
             {
                 newGameButton,
                 loadGameButton,
+                editMapButton,
                 quitGameButton
             };
 
@@ -74,6 +83,13 @@ namespace Farm_Prototype.States
             Console.WriteLine("Starting new game...");
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
             // load new state
+        }
+
+        private void EditMapButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Editing maps...");
+            _game.ChangeState(new EditMapsListState(_game, _graphicsDevice, _content));
+            // load edit map
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

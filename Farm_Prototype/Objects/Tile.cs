@@ -114,12 +114,18 @@ namespace Farm_Prototype.Objects
 
         public void Update(GameTime gameTime, KeyboardState keyboardState, Camera camera)
         {
+            // DebugUpdate(gameTime, keyboardState, camera);
+        }
+
+        public void DebugUpdate(GameTime gameTime, KeyboardState keyboardState, Camera camera)
+        {
+            // debug hovering only works when the camera zoom is set to 1.0f
+
             var ms = Mouse.GetState();
             var b = camera.GetBounds();
-            var mr = new Rectangle(b.X + ms.Position.X,b.Y + 142 + ms.Position.Y, 1, 1);
+            var mr = new Rectangle(b.X + ms.Position.X, b.Y + 142 + ms.Position.Y, 1, 1);
 
-            _isHovered = false;
-            if(mr.Intersects(new Rectangle((int)Position.X + 16, (int)Position.Y + 16, Texture.Width / 2, Texture.Height / 2)))
+            if (mr.Intersects(new Rectangle((int)Position.X + 16, (int)Position.Y + 16, Texture.Width / 2, Texture.Height / 2)))
             {
                 // mouse is hovering
                 Console.WriteLine($"Tile {TileIndex} is currently hovered");
@@ -127,7 +133,7 @@ namespace Farm_Prototype.Objects
                 OutlineCooldown = 25;
             }
 
-            if(TileNPC != null)
+            if (TileNPC != null)
             {
                 TileNPC.Update(gameTime, keyboardState);
             }

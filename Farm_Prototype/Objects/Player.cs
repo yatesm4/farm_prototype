@@ -289,6 +289,7 @@ namespace Farm_Prototype.Objects
         #region DRAW
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Console.WriteLine("Player drawing");
             if(headFront == true)
             {
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);

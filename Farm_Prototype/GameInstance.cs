@@ -51,7 +51,7 @@ namespace Farm_Prototype
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentState = new MenuState(this, GraphicsDevice, Content);
+            _currentState = new SplashScreenState(this, GraphicsDevice, Content);
         }
 
         protected override void UnloadContent()

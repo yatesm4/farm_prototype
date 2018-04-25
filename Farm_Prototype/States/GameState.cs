@@ -25,7 +25,7 @@ namespace Farm_Prototype.States
         private Random _rndGen { get; set; } = new Random();
         private GameContent _gameContent { get; set; }
 
-        private int _mapCount { get; set; } = 1;
+        private int _mapCount { get; set; } = 5;
         private List<Map> _maps { get; set; }
         private Map _currentMap { get; set; }
         private Map _nextMap { get; set; }
@@ -46,12 +46,15 @@ namespace Farm_Prototype.States
                 GenerateMaps();
                 Console.WriteLine(LINE);
                 LoadMaps();
+                Console.WriteLine(LINE);
             }
 
-            _currentMap = _maps[0];
+            var foo = _rndGen.Next(0, _maps.Count - 1);
+            _currentMap = _maps[foo];
+            Console.WriteLine($"Loading map: {foo + 1}");
 
             _camera = new Camera(graphicsDevice);
-            _camera.Zoom = 1f;
+            _camera.Zoom = 1.5f;
 
             LoadPlayer();
         }
@@ -84,7 +87,6 @@ namespace Farm_Prototype.States
                 } else
                 {
                     Console.WriteLine($"Loading map: {i + 1}");
-                    Console.WriteLine(data);
                     List<TileData> tdList_ = JsonConvert.DeserializeObject<List<TileData>>(data);
 
                     foreach(TileData t in tdList_)
@@ -123,8 +125,7 @@ namespace Farm_Prototype.States
 
         public void GenerateMaps()
         {
-            int rnd_amt_of_maps = _rndGen.Next(1, 5);
-            for(int i = 0; i < rnd_amt_of_maps; i++)
+            for(int i = 0; i < 5; i++)
             {
                 Console.WriteLine($"Generating map: {i + 1}");
                 List<TileData> tileData = new List<TileData>();
@@ -195,7 +196,11 @@ namespace Farm_Prototype.States
 
         public void HandleInput(GameTime gameTime, KeyboardState keyboardState)
         {
-
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                // on escape, go back to menu state
+                _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            }
         }
 
         public override void PostUpdate(GameTime gameTime)
