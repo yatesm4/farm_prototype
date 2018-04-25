@@ -8,23 +8,32 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Farm_Prototype.Content;
+
 namespace Farm_Prototype.Objects
 {
     public class NPC
     {
-
+        // rng generator
         Random rnd = new Random();
 
-        private Animation bodyAnimation;
-        private Animation headAnimation;
-        private AnimationPlayer bodySprite;
-        private AnimationPlayer headSprite;
+        // sprite settings
+        Animation bodyAnimation;
+        Animation headAnimation;
+        AnimationPlayer bodySprite;
+        AnimationPlayer headSprite;
 
+        // tile settings
         Vector2 tileIndex;
         Tile[,] tileArray;
         Tile currentTile;
 
+        // local bounds
         private Rectangle localBounds;
+
+        // speech bubble settings
+        public SpeechBubble speechBubble;
+        public bool IsHovered = false;
 
         private Vector2 position { get; set; }
         public Vector2 Position
@@ -33,20 +42,24 @@ namespace Farm_Prototype.Objects
             set { position = value; }
         }
 
-        public NPC(Microsoft.Xna.Framework.Content.ContentManager Content, int npcIndex, int headIndex, Vector2 tileIndex, Tile[,] tiles)
+        public NPC(GameContent Content, int npcIndex, int headIndex, Vector2 tileIndex, Tile[,] tiles)
         {
+            // set the npc's tile
             tileArray = tiles;
             currentTile = tileArray[(int)tileIndex.X, (int)tileIndex.Y];
+
+            // load npc's content
             LoadContent(Content, npcIndex, headIndex);
             Reset(currentTile.CenterPoint);
+
+            // load speech bubble
+            speechBubble = new SpeechBubble(Content, 3, Position - new Vector2(-8, 30));
         }
 
-        public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content, int npcIndex, int headIndex)
+        public void LoadContent(GameContent Content, int npcIndex, int headIndex)
         {
-            string npc_path = "Sprites/Characters/NPCs/0" + npcIndex;
-            string head_path = "Sprites/Characters/Head/0" + headIndex;
-            bodyAnimation = new Animation(Content.Load<Texture2D>(npc_path), 0.15f, true);
-            headAnimation = new Animation(Content.Load<Texture2D>(head_path), 0.1f, false);
+            bodyAnimation = new Animation(Content.GetNpcTexture(npcIndex), 0.15f, true);
+            headAnimation = new Animation(Content.GetHeadTexture(headIndex), 0.1f, false);
             headAnimation.IsStill = true;
 
             // Calculate bounds within texture size.            
@@ -86,6 +99,10 @@ namespace Farm_Prototype.Objects
         {
             bodySprite.Draw(gameTime, spriteBatch, Position, SpriteEffects.None);
             headSprite.Draw(gameTime, spriteBatch, Position - new Vector2(0, 11), SpriteEffects.None);
+            if(IsHovered == true)
+            {
+                speechBubble.Draw(gameTime, spriteBatch);
+            }
         }
     }
 }

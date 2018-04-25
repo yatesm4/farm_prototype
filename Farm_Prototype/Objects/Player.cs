@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 
+using Farm_Prototype.Content;
+
 namespace Farm_Prototype.Objects
 {
     public class Player
@@ -32,6 +34,8 @@ namespace Farm_Prototype.Objects
 
         bool headFront = true;
         bool lastInputWasLeft = true;
+
+        SpriteFont font;
         #endregion
 
         #region SOUND PROPS
@@ -77,11 +81,12 @@ namespace Farm_Prototype.Objects
         #endregion
 
         #region CONSTRUCTOR
-        public Player(Microsoft.Xna.Framework.Content.ContentManager Content, Vector2 _position, Vector2 tileIndex, Tile[,] tiles)
+        public Player(GameContent content, Vector2 _position, Vector2 tileIndex, Tile[,] tiles)
         {
+            font = content.GetFont(1);
             gameTiles = tiles;
             currentTile = gameTiles[(int)tileIndex.X, (int)tileIndex.Y];
-            LoadContent(Content);
+            LoadContent(content);
             Reset(currentTile.CenterPoint);
 
             // load inventory
@@ -90,8 +95,9 @@ namespace Farm_Prototype.Objects
         #endregion
 
         #region LOAD
-        public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager Content)
+        public void LoadContent(GameContent Content)
         {
+            selectCursor.PlayAnimation(new Animation(Content.GetUiTexture(5), 0.1f, true));
             /***
              * technically you could have the sprite loaded based on custom input, if you have more than 1 character made
              * and you could load the sprites dynamically like this
@@ -100,16 +106,16 @@ namespace Farm_Prototype.Objects
              * southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/"+spriteSouthWest), 0.13f, true);
              ***/
             // Load the spritesheet for each direction
-            southWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_SouthWest"), 0.15f, true);
-            southEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_SouthEast"), 0.15f, true);
-            northWestBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_NorthWest"), 0.15f, true);
-            northEastBodyAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Body/02_NorthEast"), 0.15f, true);
+            southWestBodyAnimation = new Animation(Content.GetBodyTexture(1), 0.15f, true);
+            southEastBodyAnimation = new Animation(Content.GetBodyTexture(2), 0.15f, true);
+            northWestBodyAnimation = new Animation(Content.GetBodyTexture(3), 0.15f, true);
+            northEastBodyAnimation = new Animation(Content.GetBodyTexture(4), 0.15f, true);
             // load the head spritesheet
-            headAnimation = new Animation(Content.Load<Texture2D>("Sprites/Characters/Head/02"), 0.1f, false);
+            headAnimation = new Animation(Content.GetHeadTexture(2), 0.1f, false);
             // set the animation to be still for the head, so we can load each frame in it individually
             headAnimation.IsStill = true;
 
-            footstep = Content.Load<SoundEffect>("Sounds/Effects/footstep");
+            footstep = Content.GetSoundEffect(1);
 
             // Calculate bounds within texture size.            
             int width = (int)(southWestBodyAnimation.FrameWidth * 0.4);
@@ -148,8 +154,22 @@ namespace Farm_Prototype.Objects
             }
             if(isMoving == true)
             {
-                ApplyPhysics(gameTime);
+                // handle footstep sounds
+                // if the footstep cooldown is back to 0
+                if (footstepCooldown <= 0)
+                {
+                    // play a footstep sound and reset the cooldown to 20 update cycles
+                    footstep.Play();
+                    footstepCooldown += 20;
+                }
+                // if the footstep cooldown is above 0
+                if (footstepCooldown > 0)
+                {
+                    // decrement the cooldown
+                    footstepCooldown--;
+                }
 
+                ApplyPhysics(gameTime);
             }
 
         }
@@ -196,6 +216,7 @@ namespace Farm_Prototype.Objects
             // if there is any keyboard movement
             if((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.D)) && isMoving == false && movementCooldown <= 0)
             {
+                Console.WriteLine("Player input detected");
                 // set the head to be in front of the body
                 headFront = true;
 
@@ -248,21 +269,6 @@ namespace Farm_Prototype.Objects
                 // Set the animation loop to true
                 bodySprite.Animation.IsLooping = true;
 
-                // handle footstep sounds
-                // if the footstep cooldown is back to 0
-                if(footstepCooldown <= 0)
-                {
-                    // play a footstep sound and reset the cooldown to 20 update cycles
-                    footstep.Play();
-                    footstepCooldown += 20;
-                }
-                // if the footstep cooldown is above 0
-                if(footstepCooldown > 0)
-                {
-                    // decrement the cooldown
-                    footstepCooldown--;
-                }
-
                 HandleNextTile();
             }
             else
@@ -311,6 +317,11 @@ namespace Farm_Prototype.Objects
         #endregion
 
         #region HANDLE TILES
+        public Tile CurrentlyFacedTile()
+        {
+            Tile t = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
+            return t;
+        }
         public void HandleNextTile()
         {
             int destX, destY;

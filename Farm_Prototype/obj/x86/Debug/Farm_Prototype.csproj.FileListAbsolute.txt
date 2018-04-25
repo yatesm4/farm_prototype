@@ -155,3 +155,12 @@ C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Conte
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_NorthWest.xnb
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_SouthEast.xnb
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Characters\Body\02_SouthWest.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\BubbleIcons\QueMoney.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\BubbleIcons\QueWeed.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_SpeechBubble.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_02.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_03.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Cement.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Road_Left.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Road_Right.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Button.xnb

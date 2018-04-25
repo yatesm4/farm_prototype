@@ -8,10 +8,31 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Comora;
+
 namespace Farm_Prototype.Objects
 {
+    public class TileData
+    {
+        public int TextureIndex { get; set; } = 0;
+        public Vector2 TileIndex { get; set; } = new Vector2(0, 0);
+        public Vector2 Position { get; set; } = new Vector2(0, 0);
+
+        public bool ContainsInner { get; set; } = false;
+        public int InnerTextureIndex { get; set; } = 0;
+
+        public bool ContainsNPC { get; set; } = false;
+        public int NpcIndex { get; set; } = 0;
+    }
+
     public class Tile
     {
+        private TileData _tileData { get; set; }
+        public TileData TileData
+        {
+            get { return _tileData; }
+            set { _tileData = value; }
+        }
 
         private Texture2D _outlineTexture { get; set; }
         public Texture2D OutlineTexture
@@ -21,6 +42,7 @@ namespace Farm_Prototype.Objects
         }
         public bool ShowOutline { get; set; } = false;
         public int OutlineCooldown { get; set; } = 0;
+        private bool _isHovered { get; set; } = false;
 
         private Texture2D _texture { get; set; }
         private Texture2D _innerTexture { get; set; } = null;
@@ -90,8 +112,21 @@ namespace Farm_Prototype.Objects
             TileIndex = tileIndex_;
         }
 
-        public void Update(GameTime gameTime, KeyboardState keyboardState)
+        public void Update(GameTime gameTime, KeyboardState keyboardState, Camera camera)
         {
+            var ms = Mouse.GetState();
+            var b = camera.GetBounds();
+            var mr = new Rectangle(b.X + ms.Position.X,b.Y + 142 + ms.Position.Y, 1, 1);
+
+            _isHovered = false;
+            if(mr.Intersects(new Rectangle((int)Position.X + 16, (int)Position.Y + 16, Texture.Width / 2, Texture.Height / 2)))
+            {
+                // mouse is hovering
+                Console.WriteLine($"Tile {TileIndex} is currently hovered");
+                ShowOutline = true;
+                OutlineCooldown = 25;
+            }
+
             if(TileNPC != null)
             {
                 TileNPC.Update(gameTime, keyboardState);
@@ -101,8 +136,9 @@ namespace Farm_Prototype.Objects
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, position: Position, scale: Scale, layerDepth: 0.4f);
-            if (ShowOutline == true & OutlineCooldown > 0)
+            if ((ShowOutline == true & OutlineCooldown > 0))
             {
+                Console.WriteLine($"Drawing outline for tile {TileIndex}");
                 spriteBatch.Draw(OutlineTexture, position: Position, scale: Scale, layerDepth: 0.4f);
                 OutlineCooldown--;
             } else if (OutlineCooldown == 0)

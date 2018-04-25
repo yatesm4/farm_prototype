@@ -5,11 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+using Farm_Prototype.Content;
 
 namespace Farm_Prototype.Objects
 {
     public class Vendor : NPC
     {
+        public Vendor(GameContent Content, int npcIndex, int headIndex, Vector2 tileIndex, Tile[,] tiles) : base(Content, npcIndex, headIndex, tileIndex, tiles)
+        {
+            speechBubble.IconIndex = 4;
+        }
+
         private int _inventoryCount { get; set; } = 10;
         public int InventoryCount
         {
@@ -22,10 +30,6 @@ namespace Farm_Prototype.Objects
         {
             get { return _inventoryItems; }
             set { _inventoryItems = value; }
-        }
-
-        public Vendor(ContentManager Content, int npcIndex, int headIndex, Vector2 tileIndex, Tile[,] tiles) : base(Content, npcIndex, headIndex, tileIndex, tiles)
-        {
         }
 
         public Item GetItem(int index_)

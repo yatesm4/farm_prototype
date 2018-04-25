@@ -8,6 +8,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Comora;
+
+using Farm_Prototype.Content;
+
 namespace Farm_Prototype.Objects
 {
     public class Map
@@ -20,36 +24,66 @@ namespace Farm_Prototype.Objects
         }
 
         int width, height, tw, th;
-        Texture2D[] textures;
+        
+        private GameContent _content { get; set; }
+        public GameContent Content
+        {
+            get { return _content; }
+            set { _content = value; }
+        }
 
-        //SpriteFont font;
+        private SpriteFont font;
 
-        public Map(Tile[,] tiles_, int width_, int height_, int tx_, int ty_, Texture2D[] textures_)
+        public Map(Tile[,] tiles_, int width_, int height_, int tx_, int ty_, GameContent content_)
         {
             Tiles = tiles_;
             width = width_;
             height = height_;
             tw = tx_;
             th = ty_;
-            textures = textures_;
-            //font = font_;
+            Content = content_;
+            font = Content.GetFont(1);
         }
 
-        public void Update(GameTime gameTime, KeyboardState keyboardState)
+        public void Update(GameTime gameTime, KeyboardState keyboardState, Camera camera)
         {
             for (int x = 0; x < 50; x++)
             {
                 for (int y = 0; y < 50; y++)
                 {
-                    Tiles[x, y].Update(gameTime, keyboardState);
+                    Tiles[x, y].Update(gameTime, keyboardState, camera);
                 }
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Player player_)
         {
-            List<Tile> depthArr = new List<Tile>();
+            // handle management of the currently faced tile
+            Tile facedTile = player_.CurrentlyFacedTile();
 
+            for (int x = 0; x < 50; x++)
+            {
+                for (int y = 0; y < 50; y++)
+                {
+                    if (Tiles[x, y].TileIndex.Equals(facedTile.TileIndex))
+                    {
+                        if(Tiles[x, y].TileNPC != null)
+                        {
+                            Tiles[x, y].TileNPC.IsHovered = true;
+                        }
+                    }
+                    else
+                    {
+                        if (Tiles[x, y].TileNPC != null)
+                        {
+                            Tiles[x, y].TileNPC.IsHovered = false;
+                        }
+                    }
+                }
+            }
+
+            // draw each tile and sort based on depth
+            List<Tile> depthArr = new List<Tile>();
             for (int x = 0; x < 50; x++)
             {
                 for (int y = 0; y < 50; y++)
@@ -91,9 +125,9 @@ namespace Farm_Prototype.Objects
 
             player_.Draw(gameTime, spriteBatch);
 
-
             foreach (Tile t in depthArr)
             {
+
                 if (t.DrawInnerDelayed == true)
                 {
                     t.DrawInner(gameTime, spriteBatch);
@@ -107,6 +141,7 @@ namespace Farm_Prototype.Objects
 
             }
 
+            // draw player cursor
             player_.DrawCursor(gameTime, spriteBatch);
 
             /*
@@ -114,13 +149,13 @@ namespace Farm_Prototype.Objects
             {
                 for (int y = 0; y < 50; y++)
                 {
-                    Tiles[x, y].DrawInnerDelayed = false;
-                    string message = "X: " + x + ", Y: " + y;
+                    string message = "X: " + Tiles[x,y].TileIndex.X + ", Y: " + Tiles[x, y].TileIndex.Y;
                     Vector2 textMiddlePoint = font.MeasureString(message) / 2;
-                    spriteBatch.DrawString(font, message, Tiles[x, y].Position + new Vector2(32, 32), Color.Black, 0, textMiddlePoint, 0.3f, SpriteEffects.None, 0.5f);
+                    spriteBatch.DrawString(font, message, Tiles[x, y].Position + new Vector2(32, 38), Color.Black, 0, textMiddlePoint, 0.5f, SpriteEffects.None, 0.5f);
                 }
             }
             */
+            
         }
     }
 }
