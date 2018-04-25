@@ -164,3 +164,13 @@ C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototyp
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csproj.CoreCompileInputs.cache
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.exe
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.pdb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\BubbleIcons\QueMoney.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\BubbleIcons\QueWeed.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Button.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_SpeechBubble.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_02.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_03.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Cement.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Road_Left.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Ground_Road_Right.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Branding\YD_Logo.xnb

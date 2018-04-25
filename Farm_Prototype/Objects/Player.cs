@@ -216,7 +216,6 @@ namespace Farm_Prototype.Objects
             // if there is any keyboard movement
             if((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.S) || keyboardState.IsKeyDown(Keys.W) || keyboardState.IsKeyDown(Keys.D)) && isMoving == false && movementCooldown <= 0)
             {
-                Console.WriteLine("Player input detected");
                 // set the head to be in front of the body
                 headFront = true;
 
@@ -289,7 +288,6 @@ namespace Farm_Prototype.Objects
         #region DRAW
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Console.WriteLine("Player drawing");
             if(headFront == true)
             {
                 bodySprite.Draw(gameTime, spriteBatch, position, SpriteEffects.None);

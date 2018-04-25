@@ -29,10 +29,18 @@ namespace Farm_Prototype.States
 
         private List<TileData> _map { get; set; } = new List<TileData>();
 
+        public CellDataDisplay CellDataDisplay { get; set; }
+
         public EditMapState(GameInstance game, GraphicsDevice graphicsDevice, ContentManager content, List<TileData> map) : base(game, graphicsDevice, content)
         {
             _map = map;
+            _gameContent = new GameContent(content);
             LoadCells();
+            CellDataDisplay = new CellDataDisplay(graphicsDevice, _gameContent)
+            {
+                Position = new Vector2((800 - (384)), 8)
+            };
+            _components.Add(CellDataDisplay);
         }
 
         private void LoadCells()
@@ -89,14 +97,25 @@ namespace Farm_Prototype.States
                     {
                         cellColor_ = Color.Red;
                     }
-                    var cell = new GridCell(cellColor_)
+                    var cell = new GridCell(cellColor_, _graphicsDevice)
                     {
-                        Position = new Vector2(8 + (w * 8), 8 + (h * 8))
+                        Position = new Vector2(8 + (w * 8), 8 + (h * 8)),
+                        TileData = td
+                    };
+                    cell.Click += delegate
+                    {
+                        GridCell_Click(cell);
                     };
                     _gridCells.Add(cell);
                     _components.Add(cell);
                 }
             }
+        }
+
+        private void GridCell_Click(GridCell cell)
+        {
+            Console.WriteLine($"Changing cell");
+            CellDataDisplay.NextCell = cell;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

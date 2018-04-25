@@ -26,7 +26,12 @@ namespace Farm_Prototype.Objects
         // tile settings
         Vector2 tileIndex;
         Tile[,] tileArray;
-        Tile currentTile;
+        Tile currentTile { get; set; }
+        public Tile CurrentTile
+        {
+            get { return currentTile; }
+            set { currentTile = value; }
+        }
 
         // local bounds
         private Rectangle localBounds;
@@ -46,11 +51,17 @@ namespace Farm_Prototype.Objects
         {
             // set the npc's tile
             tileArray = tiles;
-            currentTile = tileArray[(int)tileIndex.X, (int)tileIndex.Y];
+            try
+            {
+                currentTile = tileArray[(int)tileIndex.X, (int)tileIndex.Y];
+            } catch (Exception e)
+            {
+                Console.WriteLine("Couldn't set current tile of npc");
+            }
 
             // load npc's content
             LoadContent(Content, npcIndex, headIndex);
-            Reset(currentTile.CenterPoint);
+            Reset(currentTile != null ? currentTile.CenterPoint : new Vector2(0,0));
 
             // load speech bubble
             speechBubble = new SpeechBubble(Content, 3, Position - new Vector2(-8, 30));

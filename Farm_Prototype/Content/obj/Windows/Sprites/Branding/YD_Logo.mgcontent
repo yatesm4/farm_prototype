@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/Sprites/Branding/YD_Logo.png</SourceFile>
-  <SourceTime>2018-04-25T03:54:45.0737749-04:00</SourceTime>
-  <DestFile>C:/_DEV/YESTERDAY_DEVELOPMENT/WEED_FARM/PROTOTYPING/farm_prototype/Farm_Prototype/Content/bin/Windows/Sprites/Branding/YD_Logo.xnb</DestFile>
-  <DestTime>2018-04-25T04:11:44.6470663-04:00</DestTime>
+  <SourceFile>C:/_SourceControl/SELF/farm_prototype/Farm_Prototype/Content/Sprites/Branding/YD_Logo.png</SourceFile>
+  <SourceTime>2018-04-25T11:37:20.7028289-04:00</SourceTime>
+  <DestFile>C:/_SourceControl/SELF/farm_prototype/Farm_Prototype/Content/bin/Windows/Sprites/Branding/YD_Logo.xnb</DestFile>
+  <DestTime>2018-04-25T11:45:16.4627727-04:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T10:05:36-05:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

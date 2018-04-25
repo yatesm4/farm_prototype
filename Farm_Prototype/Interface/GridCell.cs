@@ -8,15 +8,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Farm_Prototype.Objects;
+
 namespace Farm_Prototype.Interface
 {
     public class GridCell : Component
     {
+        private MouseState _previousMouse;
         private MouseState _currentMouse;
-
         private bool _isHovering;
 
-        private MouseState _previousMouse;
+        public TileData TileData { get; set; }
 
         private Vector2 _cellSize = new Vector2(8, 8);
 
@@ -27,12 +29,17 @@ namespace Farm_Prototype.Interface
         public Color PenColor { get; set; } = Color.Black;
 
         public Color CellColor { get; set; } = Color.Green;
+        public Color[] CellColorData { get; set; }
 
         public Color HoverColor { get; set; } = Color.LightBlue;
+        public Color[] HoverColorData { get; set; }
 
         public Vector2 Position { get; set; }
 
         public Vector2 Scale { get; set; } = new Vector2(1, 1);
+
+        public Texture2D Texture { get; set; }
+        public Texture2D HoverTexture { get; set; }
 
         public Rectangle Rectangle
         {
@@ -42,29 +49,38 @@ namespace Farm_Prototype.Interface
             }
         }
 
-        public GridCell(Color cellColor_)
+        public GridCell(Color cellColor_, GraphicsDevice graphicsDevice_)
         {
             CellColor = cellColor_;
+            SetColorData(graphicsDevice_);
+        }
+
+        public void SetColorData(GraphicsDevice graphicsDevice_)
+        {
+            Texture = new Texture2D(graphicsDevice_, (int)_cellSize.X, (int)_cellSize.Y);
+            HoverTexture = new Texture2D(graphicsDevice_, (int)_cellSize.X, (int)_cellSize.Y);
+            CellColorData = new Color[(int)_cellSize.X * (int)_cellSize.Y];
+            HoverColorData = new Color[(int)_cellSize.X * (int)_cellSize.Y];
+            for(int i = 0; i < CellColorData.Length; i++)
+            {
+                CellColorData[i] = CellColor;
+                HoverColorData[i] = HoverColor;
+            }
+            Texture.SetData(CellColorData);
+            HoverTexture.SetData(HoverColorData);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // draw
-            var color = CellColor;
+            var txt = Texture;
 
             if (_isHovering.Equals(true))
             {
-                color = HoverColor;
+                txt = HoverTexture;
             }
 
-            var txt = new Texture2D(spriteBatch.GraphicsDevice, (int)_cellSize.X, (int)_cellSize.Y);
-            Color[] colordata = new Color[(int)_cellSize.X * (int)_cellSize.Y];
-            for(int i = 0; i < colordata.Length; i++)
-            {
-                colordata[i] = color;
-            }
-            txt.SetData(colordata);
-            spriteBatch.Draw(txt, Rectangle, color);
+            spriteBatch.Draw(txt, Rectangle, Color.White);
         }
 
         public override void Update(GameTime gameTime)
