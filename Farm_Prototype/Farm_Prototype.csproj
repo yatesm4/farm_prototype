@@ -46,7 +46,9 @@
     <Compile Include="GameInstance.cs" />
     <Compile Include="Interface\Button.cs" />
     <Compile Include="Interface\CellDataDisplay.cs" />
+    <Compile Include="Interface\DebugMenu.cs" />
     <Compile Include="Interface\GridCell.cs" />
+    <Compile Include="Interface\SelectionCell.cs" />
     <Compile Include="Objects\Animation.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
     <Compile Include="Objects\Item.cs" />

@@ -166,6 +166,7 @@ namespace Farm_Prototype.Objects
             if(TileNPC != null)
             {
                 TileNPC.Draw(gameTime, spriteBatch);
+                //Console.WriteLine($"Drawing NPC@:> {TileIndex}");
             }
         }
     }

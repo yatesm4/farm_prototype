@@ -114,7 +114,8 @@ namespace Farm_Prototype.States
 
         private void GridCell_Click(GridCell cell)
         {
-            Console.WriteLine($"Changing cell");
+            Console.WriteLine($"Changing cell:>");
+            Console.WriteLine($"{JsonConvert.SerializeObject(cell.TileData, Formatting.Indented)}");
             CellDataDisplay.NextCell = cell;
         }
 

@@ -15,6 +15,7 @@ using Comora;
 
 using Farm_Prototype.Content;
 using Farm_Prototype.Objects;
+using Farm_Prototype.Interface;
 
 namespace Farm_Prototype.States
 {
@@ -22,8 +23,13 @@ namespace Farm_Prototype.States
     {
         private string LINE = "###########################################################################";
 
+        private DebugMenu _debugMenu;
+        private bool _debug { get; set; } = false;
+
         private Random _rndGen { get; set; } = new Random();
         private GameContent _gameContent { get; set; }
+
+        private KeyboardState _previousKeyboardState { get; set; }
 
         private int _mapCount { get; set; } = 5;
         private List<Map> _maps { get; set; }
@@ -57,6 +63,8 @@ namespace Farm_Prototype.States
             _camera.Zoom = 1.5f;
 
             LoadPlayer();
+
+            _debugMenu = new DebugMenu(graphicsDevice, _gameContent);
         }
 
         public void LoadMaps()
@@ -192,15 +200,39 @@ namespace Farm_Prototype.States
                 _currentMap = _nextMap;
                 _nextMap = null;
             }
+
+            if (_debug.Equals(true))
+            {
+                _debugMenu.Update(gameTime);
+            }
         }
 
         public void HandleInput(GameTime gameTime, KeyboardState keyboardState)
         {
+            if (_firstTake.Equals(true))
+            {
+                _firstTake = false;
+                _previousKeyboardState = keyboardState;
+            }
+
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 // on escape, go back to menu state
                 _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+            } else if (keyboardState.IsKeyUp(Keys.LeftControl) && _previousKeyboardState.IsKeyDown(Keys.LeftControl))
+            {
+                if (_debug.Equals(true))
+                {
+                    Console.WriteLine($"Closing Debug Menu...");
+                    _debug = false;
+                } else
+                {
+                    Console.WriteLine($"Starting Debug Menu...");
+                    _debug = true;
+                }
             }
+
+            _previousKeyboardState = keyboardState;
         }
 
         public override void PostUpdate(GameTime gameTime)
@@ -219,6 +251,13 @@ namespace Farm_Prototype.States
 
             _currentMap.Draw(gameTime, spriteBatch, _player);
 
+            spriteBatch.End();
+
+            spriteBatch.Begin();
+            if (_debug.Equals(true))
+            {
+                _debugMenu.Draw(gameTime, spriteBatch);
+            }
             spriteBatch.End();
         }
     }

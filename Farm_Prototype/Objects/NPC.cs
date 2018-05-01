@@ -114,6 +114,7 @@ namespace Farm_Prototype.Objects
             {
                 speechBubble.Draw(gameTime, spriteBatch);
             }
+            //Console.WriteLine($"NPC Drawn");
         }
     }
 }

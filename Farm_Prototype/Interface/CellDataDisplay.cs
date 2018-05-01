@@ -119,9 +119,9 @@ namespace Farm_Prototype.Interface
 
             if(CurrentCell != null)
             {
-                _currentTile.Draw(gameTime, spriteBatch);
-                _currentTile.DrawNPC(gameTime, spriteBatch);
-                _currentTile.DrawInner(gameTime, spriteBatch);
+                //_currentTile.Draw(gameTime, spriteBatch);
+                //_currentTile.DrawInner(gameTime, spriteBatch);
+                //_currentTile.DrawNPC(gameTime, spriteBatch);
             }
         }
 
