@@ -48,6 +48,7 @@
     <Compile Include="Interface\CellDataDisplay.cs" />
     <Compile Include="Interface\DebugMenu.cs" />
     <Compile Include="Interface\GridCell.cs" />
+    <Compile Include="Interface\HorizontalScrollMenu.cs" />
     <Compile Include="Interface\SelectionCell.cs" />
     <Compile Include="Objects\Animation.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />

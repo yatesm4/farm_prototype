@@ -26,7 +26,8 @@ namespace Farm_Prototype.States
             {
                 Position = new Vector2(50, 50),
                 Text = "New Game",
-                HoverColor = Color.Red
+                HoverColor = Color.Red,
+                Scale = new Vector2(0.8f, 0.8f)
             };
             newGameButton.Click += NewGameButton_Click;
 
@@ -34,7 +35,8 @@ namespace Farm_Prototype.States
             {
                 Position = new Vector2(50, 150),
                 Text = "Load Game",
-                HoverColor = Color.Orange
+                HoverColor = Color.Orange,
+                Scale = new Vector2(0.8f, 0.8f)
             };
             loadGameButton.Click += LoadGameButton_Click;
 
@@ -42,7 +44,8 @@ namespace Farm_Prototype.States
             {
                 Position = new Vector2(50, 250),
                 Text = "Edit Map",
-                HoverColor = Color.Yellow
+                HoverColor = Color.Yellow,
+                Scale = new Vector2(0.8f, 0.8f)
             };
             editMapButton.Click += EditMapButton_Click;
 
@@ -50,7 +53,8 @@ namespace Farm_Prototype.States
             {
                 Position = new Vector2(50, 350),
                 Text = "Quit Game",
-                HoverColor = Color.Green
+                HoverColor = Color.Green,
+                Scale = new Vector2(0.8f, 0.8f)
             };
             quitGameButton.Click += QuitGameButton_Click;
 

@@ -21,7 +21,6 @@ namespace Farm_Prototype.Interface
     {
         private GameContent _content { get; set; }
         private SpriteFont _font { get; set; }
-        private Camera _camera { get; set; }
 
         private bool _isHovering { get; set; } = false;
 
@@ -41,7 +40,9 @@ namespace Farm_Prototype.Interface
         public Vector2 Position { get; set; }
         public Vector2 Scale { get; set; } = new Vector2(1, 1);
 
-        public List<SelectionCell> SelectionCells = new List<SelectionCell>();
+        public List<Component> Components = new List<Component>();
+        public Texture2D SelectedTexture { get; set; }
+        public HorizontalScrollMenu SelectMenu { get; set; }
 
         public Rectangle Rectangle
         {
@@ -63,13 +64,19 @@ namespace Farm_Prototype.Interface
 
             Console.WriteLine($"Debug Menu Created:>");
             Console.WriteLine($"Size: {_displaySize}");
-            Console.WriteLine($"Posiiton: {Position}");
+            Console.WriteLine($"Position: {Position}");
 
             SetColorData(graphicsDevice_);
             _content = content_;
             _font = _content.GetFont(1);
 
-            LoadSelections(graphicsDevice_, content_);
+            LoadItemsMenu(graphicsDevice_);
+        }
+
+        public void LoadItemsMenu(GraphicsDevice graphicsDevice_)
+        {
+            SelectMenu = new HorizontalScrollMenu(graphicsDevice_, _content, new Vector2((40 * 9) + 8, 48), Position, _content.TileTextures);
+            Components.Add(SelectMenu);
         }
 
         public void SetColorData(GraphicsDevice graphicsDevice_)
@@ -87,27 +94,13 @@ namespace Farm_Prototype.Interface
             HoverTexture.SetData(HoverColorData);
         }
 
-        public void LoadSelections(GraphicsDevice graphicsDevice_, GameContent content_)
-        {
-            var pos = new Vector2(Position.X + 8, Position.Y + 8);
-            int id = 1;
-            foreach(ContentData<Texture2D> t in _content.TileTextures)
-            {
-                if (t.Id.Equals(1))
-                    continue;
-                SelectionCells.Add(new SelectionCell(graphicsDevice_, pos, t.Data, id));
-                pos += new Vector2(48, 0);
-                id++;
-            }
-        }
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // draw here
             spriteBatch.Draw(Texture, Rectangle, Color.White);
             //Console.WriteLine($"Debug menu is visible");
 
-            foreach(SelectionCell c in SelectionCells)
+            foreach(Component c in Components)
             {
                 c.Draw(gameTime, spriteBatch);
             }
@@ -116,7 +109,8 @@ namespace Farm_Prototype.Interface
         public override void Update(GameTime gameTime)
         {
             // update here
-            foreach(SelectionCell c in SelectionCells)
+
+            foreach (Component c in Components)
             {
                 c.Update(gameTime);
             }

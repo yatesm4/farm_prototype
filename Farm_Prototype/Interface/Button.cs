@@ -36,14 +36,16 @@ namespace Farm_Prototype.Interface
 
         public Vector2 Position { get; set; }
 
-        public Vector2 Scale { get; set; } = new Vector2(1.5f, 1.5f);
+        public Vector2 Scale { get; set; } = new Vector2(1f, 1f);
+
+        public bool IsFlipped { get; set; } = false;
 
         // used for collision
         public Rectangle Rectangle
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width * 2, _texture.Height * 2);
+                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
         }
 
@@ -66,16 +68,22 @@ namespace Farm_Prototype.Interface
                 color = HoverColor;
             }
 
-            spriteBatch.Draw(_texture, Rectangle, color);
+            if (IsFlipped.Equals(true))
+            {
+                spriteBatch.Draw(_texture, destinationRectangle: Rectangle, color: color, effects: SpriteEffects.FlipHorizontally);
+            } else
+            {
+                spriteBatch.Draw(_texture, Rectangle, color);
+            }
 
             if (!string.IsNullOrEmpty(Text))
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
+                var x = (_font.MeasureString(Text).X / 2);
+                var y = (_font.MeasureString(Text).Y / 2);
 
-                Vector2 origin = new Vector2(12,4);
+                Vector2 origin = new Vector2(x,y);
 
-                spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColor, 0, origin, Scale, SpriteEffects.None, 1);
+                spriteBatch.DrawString(_font, Text, new Vector2(Rectangle.X + (Rectangle.Width - Rectangle.Width / 2), Rectangle.Y + (Rectangle.Height - Rectangle.Height / 2)), PenColor, 0, origin, Scale, SpriteEffects.None, 1);
             }
         }
 

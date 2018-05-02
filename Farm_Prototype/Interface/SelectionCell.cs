@@ -36,6 +36,7 @@ namespace Farm_Prototype.Interface
         public Color[] HoverColorData { get; set; }
 
         public Vector2 Position { get; set; }
+        public Vector2 ResetPosition { get; set; }
         private Vector2 _displaySize { get; set; }
         public Vector2 Scale { get; set; } = new Vector2(1, 1);
 
@@ -53,7 +54,13 @@ namespace Farm_Prototype.Interface
             _cellID = id_;
             _displaySize = new Vector2(32,32);
             Position = position_;
+            ResetPosition = position_;
             SetColorData(graphicsDevice_);
+        }
+
+        public void ResetPos()
+        {
+            Position = ResetPosition;
         }
 
         public void SetColorData(GraphicsDevice graphicsDevice_)
@@ -95,7 +102,11 @@ namespace Farm_Prototype.Interface
             if (mouseRectangle.Intersects(Rectangle))
             {
                 _isHovering = true;
-                Console.WriteLine($"Hovering over selection cell: {_cellID}");
+
+                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                {
+                    Click?.Invoke(this, new EventArgs());
+                }
             }
         }
     }

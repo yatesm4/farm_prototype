@@ -160,6 +160,10 @@ namespace Farm_Prototype.Content
             UiTextures.Add(new ContentData<Texture2D>(i++, "Sprites/UI/BubbleIcons/QueWeed", _content));
             UiTextures.Add(new ContentData<Texture2D>(i++, "Sprites/UI/BubbleIcons/QueMoney", _content));
             UiTextures.Add(new ContentData<Texture2D>(i++, "Sprites/UI/UI_DownArrow", _content));
+            UiTextures.Add(new ContentData<Texture2D>(i++, "Sprites/UI/UI_Arrow_Green", _content));
+            UiTextures.Add(new ContentData<Texture2D>(i++, "Sprites/UI/UI_Arrow_Black", _content));
+
+            Console.WriteLine($"Ui Textures: {i}");
         }
 
         public void LoadFonts()
@@ -167,6 +171,8 @@ namespace Farm_Prototype.Content
             // total: 1
             var i = 1;
             Fonts.Add(new ContentData<SpriteFont>(i++, "Fonts/Font_01", _content));
+
+            Console.WriteLine($"Fonts: {i}");
         }
 
         // load tile/tileset textures
@@ -186,6 +192,8 @@ namespace Farm_Prototype.Content
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_01_Floor", _content));
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_02", _content));
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_03", _content));
+
+            Console.WriteLine($"Tile Textures: {i}");
         }
 
         // load player textures
@@ -198,6 +206,8 @@ namespace Farm_Prototype.Content
             BodyTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/Body/02_NorthWest", _content));
             BodyTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/Body/02_NorthEast", _content));
 
+            Console.WriteLine($"Body Textures: {i}");
+
         }
         public void LoadHeadTextures()
         {
@@ -206,6 +216,8 @@ namespace Farm_Prototype.Content
             HeadTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/Head/01", _content));
             HeadTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/Head/02", _content));
             HeadTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/Head/03", _content));
+
+            Console.WriteLine($"Head Textures: {i}");
         }
 
         public void LoadNpcTextures()
@@ -213,6 +225,8 @@ namespace Farm_Prototype.Content
             // total: 1
             var i = 1;
             NpcTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Characters/NPCs/01", _content));
+
+            Console.WriteLine($"Npc Textures: {i}");
         }
 
         // load sound effects
@@ -221,6 +235,8 @@ namespace Farm_Prototype.Content
             // total: 1
             var i = 1;
             SoundEffects.Add(new ContentData<SoundEffect>(i++, "Sounds/Effects/footstep", _content));
+
+            Console.WriteLine($"Sound Effects: {i}");
         }
     }
 }
