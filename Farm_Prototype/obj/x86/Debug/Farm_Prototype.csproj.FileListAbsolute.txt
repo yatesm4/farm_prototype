@@ -177,3 +177,5 @@ C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Conte
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\obj\x86\Debug\Farm_Prototype.csprojResolveAssemblyReference.cache
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Black.xnb
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Green.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Black.xnb
+C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Green.xnb

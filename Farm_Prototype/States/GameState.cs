@@ -34,6 +34,7 @@ namespace Farm_Prototype.States
         private int _mapCount { get; set; } = 5;
         private List<Map> _maps { get; set; }
         private Map _currentMap { get; set; }
+        private int _currentMapIndex { get; set; } = 0;
         private Map _nextMap { get; set; }
 
         private Player _player { get; set; }
@@ -55,16 +56,19 @@ namespace Farm_Prototype.States
                 Console.WriteLine(LINE);
             }
 
-            var foo = _rndGen.Next(0, _maps.Count - 1);
-            _currentMap = _maps[foo];
-            Console.WriteLine($"Loading map: {foo + 1}");
+            _currentMapIndex = _rndGen.Next(0, _maps.Count - 1);
+            _currentMap = _maps[_currentMapIndex];
+            Console.WriteLine($"Loading map: {_currentMapIndex + 1}");
 
             _camera = new Camera(graphicsDevice);
             _camera.Zoom = 1.5f;
 
             LoadPlayer();
 
-            _debugMenu = new DebugMenu(graphicsDevice, _gameContent);
+            _debugMenu = new DebugMenu(graphicsDevice, _gameContent)
+            {
+                GameState = this
+            };
         }
 
         public void LoadMaps()
@@ -124,11 +128,26 @@ namespace Farm_Prototype.States
                             tileArr_[x, y] = new Tile(_gameContent.GetTileTexture(t.TextureIndex), t.Position, t.TileIndex);
                         }
                         tileArr_[x, y].OutlineTexture = _gameContent.GetTileTexture(1);
+                        tileArr_[x, y].TileData = t;
                     }
                 }
 
                 _maps.Add(new Map(tileArr_, 50, 50, 64, 64, _gameContent));
             }
+        }
+
+        public void SaveMap()
+        {
+            List<TileData> newData = new List<TileData>();
+            foreach(Tile t in _currentMap.Tiles)
+            {
+                newData.Add(t.TileData);
+            }
+            using (var streamWriter = new System.IO.StreamWriter($"data_map{(_currentMapIndex + 1)}.json"))
+            {
+                streamWriter.WriteLine(JsonConvert.SerializeObject(newData, Formatting.Indented));
+            }
+            Console.WriteLine("Finished Saving Map.");
         }
 
         public void GenerateMaps()
@@ -204,6 +223,34 @@ namespace Farm_Prototype.States
             if (_debug.Equals(true))
             {
                 _debugMenu.Update(gameTime);
+                HandleDebugInput(keyboardState);
+            }
+
+            _previousKeyboardState = keyboardState;
+        }
+
+        public void HandleDebugInput(KeyboardState keyboardState)
+        {
+            if (keyboardState.IsKeyDown(Keys.F)){
+                Console.WriteLine("Applying texture to tile");
+                switch (_debugMenu.SelectMenu.SelectedTextureTypeId)
+                {
+                    case 0:
+                        _player.CurrentlyFacedTile().Texture = _debugMenu.SelectMenu.SelectedTexture;
+                        _player.CurrentlyFacedTile().TileData.TextureIndex = _debugMenu.SelectMenu.SelectedTextureId;
+                        break;
+                    case 1:
+                        _player.CurrentlyFacedTile().TileData.ContainsInner = true;
+                        _player.CurrentlyFacedTile().Texture = _gameContent.GetTileTexture(2);
+                        Console.WriteLine($"Changing tile tog grass: {_player.CurrentlyFacedTile().TileData.TextureIndex}");
+                        _player.CurrentlyFacedTile().TileData.TextureIndex = 2;
+                        _player.CurrentlyFacedTile().InnerTexture = _debugMenu.SelectMenu.SelectedTexture;
+                        _player.CurrentlyFacedTile().TileData.InnerTextureIndex = _debugMenu.SelectMenu.SelectedTextureId;
+                        break;
+                    case 3:
+                        // add npc to tile
+                        break;
+                }
             }
         }
 

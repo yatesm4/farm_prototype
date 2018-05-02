@@ -15,19 +15,21 @@ namespace Farm_Prototype.Interface
 {
     public class SelectionCell : Component
     {
+        public HorizontalScrollMenu ParentMenu { get; set; }
+
         private int _cellID = 0;
 
         private MouseState _currentMouse;
         private MouseState _previousMouse;
 
         private bool _isHovering = false;
-
-        public event EventHandler Click;
         public bool Clicked { get; private set; }
 
 
         public Texture2D Texture { get; set; }
         public Texture2D ObjectTexture { get; set; }
+        public int ObjectID { get; set; } = 1;
+        public int ObjectTypeID { get; set; } = 0;
         public Texture2D HoverTexture { get; set; }
 
         public Color DisplayColor { get; set; } = Color.DarkGray;
@@ -105,7 +107,10 @@ namespace Farm_Prototype.Interface
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
-                    Click?.Invoke(this, new EventArgs());
+                    Console.WriteLine($"Cell Clicked: {_cellID}");
+                    ParentMenu.SelectedTexture = ObjectTexture;
+                    ParentMenu.SelectedTextureTypeId = ObjectTypeID;
+                    ParentMenu.SelectedTextureId = ObjectID;
                 }
             }
         }

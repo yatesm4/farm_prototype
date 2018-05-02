@@ -50,6 +50,7 @@ namespace Farm_Prototype.Objects
         public Tile currentTile { get; set; }
         public Tile destTile { get; set; }
         public Vector2 directionFacing { get; set; } = new Vector2(1, 0);
+        public Vector2 previouslyFacedDirection { get; set; } = new Vector2(1,0);
         #endregion
 
         #region MOVEMENT PROPS
@@ -78,6 +79,7 @@ namespace Farm_Prototype.Objects
 
         #region INTERACTION PROPS
         private int interactionCooldown = 0;
+        public Tile TileFaced { get; set; }
         #endregion
 
         #region CONSTRUCTOR
@@ -172,6 +174,21 @@ namespace Farm_Prototype.Objects
                 ApplyPhysics(gameTime);
             }
 
+            if (TileFaced != null)
+            {
+                if (TileFaced.TileIndex.Equals(gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y].TileIndex))
+                {
+                    // dont change tile
+                }
+                else
+                {
+                    TileFaced = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
+                }
+            } else
+            {
+                TileFaced = gameTiles[(int)currentTile.TileIndex.X + (int)directionFacing.X, (int)currentTile.TileIndex.Y + (int)directionFacing.Y];
+            }
+
         }
         #endregion
 
@@ -210,6 +227,7 @@ namespace Farm_Prototype.Objects
 
         private void GetMovementInput(KeyboardState keyboardState)
         {
+            previouslyFacedDirection = directionFacing;
             // reset the movement input
             movement = new Vector2(0, 0);
 
@@ -348,21 +366,30 @@ namespace Farm_Prototype.Objects
             direction = Vector2.Normalize(destTile.CenterPoint - currentTile.CenterPoint);
             destTile.DrawDebug = true;
             isMoving = true;
-            movementCooldown += 25;
+            movementCooldown += 15;
         }
         #endregion
 
         #region PHYSICS
         public void ApplyPhysics(GameTime gameTime)
         {
-            position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float current_distance = Vector2.Distance(position, destTile.CenterPoint);
-            if(current_distance < 1)
+            if(directionFacing == previouslyFacedDirection)
             {
-                position = destTile.CenterPoint;
-                currentTile = destTile;
+                position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                float current_distance = Vector2.Distance(position, destTile.CenterPoint);
+                if (current_distance < 1)
+                {
+                    position = destTile.CenterPoint;
+                    currentTile = destTile;
+                    isMoving = false;
+                    currentTile.DrawDebug = false;
+                }
+            } else
+            {
                 isMoving = false;
-                currentTile.DrawDebug = false;
+                bodySprite.Animation.IsStill = true;
+                bodySprite.FrameIndex = 0;
+                bodySprite.Animation.IsLooping = false;
             }
         }
         #endregion

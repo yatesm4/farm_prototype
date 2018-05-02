@@ -29,6 +29,7 @@ namespace Farm_Prototype.Content
         }
 
         public int Id { get; set; } = 0;
+        public int TypeId { get; set; } = 0;
         public string Path { get; set; } = string.Empty;
         public T Data { get; set; } = default(T);
 
@@ -182,16 +183,31 @@ namespace Farm_Prototype.Content
             var i = 1;
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Glow", _content));
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Grass", _content));
-            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Tree", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Tree", _content)
+            {
+                TypeId = 1
+            });
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Road", _content));
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Cement", _content));
-            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Grass_Bench", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Grass_Bench", _content)
+            {
+                TypeId = 1
+            });
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Road_Left", _content));
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Ground_Road_Right", _content));
-            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_01", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_01", _content)
+            {
+                TypeId = 1
+            });
             TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_01_Floor", _content));
-            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_02", _content));
-            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_03", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_02", _content)
+            {
+                TypeId = 1
+            });
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_03", _content)
+            {
+                TypeId = 1
+            });
 
             Console.WriteLine($"Tile Textures: {i}");
         }

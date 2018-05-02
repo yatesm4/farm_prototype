@@ -14,11 +14,14 @@ using Comora;
 
 using Farm_Prototype.Content;
 using Farm_Prototype.Objects;
+using Farm_Prototype.States;
 
 namespace Farm_Prototype.Interface
 {
     public class DebugMenu : Component
     {
+        public GameState GameState { get; set; }
+        
         private GameContent _content { get; set; }
         private SpriteFont _font { get; set; }
 
@@ -71,6 +74,18 @@ namespace Farm_Prototype.Interface
             _font = _content.GetFont(1);
 
             LoadItemsMenu(graphicsDevice_);
+
+            Button btn = new Button(_content.GetUiTexture(1), _content.GetFont(1))
+            {
+                Position = new Vector2(SelectMenu.Position.X + SelectMenu.Rectangle.Width + 56, Position.Y+ 8),
+                Text = "SAVE MAP"
+            };
+            btn.Click += delegate
+            {
+                Console.WriteLine("Saving Map...");
+                GameState.SaveMap();
+            };
+            Components.Add(btn);
         }
 
         public void LoadItemsMenu(GraphicsDevice graphicsDevice_)

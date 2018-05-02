@@ -27,6 +27,8 @@ namespace Farm_Prototype.Interface
 
         public Texture2D Texture { get; set; }
         public Texture2D SelectedTexture { get; set; }
+        public int SelectedTextureId { get; set; } = 1;
+        public int SelectedTextureTypeId { get; set; } = 0;
         public Color DisplayColor { get; set; } = Color.DarkGray;
         public Color[] DisplayColorData { get; set; }
 
@@ -43,7 +45,7 @@ namespace Farm_Prototype.Interface
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, (int)_displaySize.X, (int)_displaySize.Y);
+                return new Rectangle((int)Position.X, (int)Position.X, (int)_displaySize.X, (int)_displaySize.Y);
             }
         }
 
@@ -51,7 +53,7 @@ namespace Farm_Prototype.Interface
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.X, (int)_displaySize.X, (int)_displaySize.Y);
+                return new Rectangle((int)Position.X + (int)_displaySize.X + 8, (int)Position.Y + 8, 32, 32);
             }
         }
 
@@ -84,14 +86,14 @@ namespace Farm_Prototype.Interface
             Console.WriteLine($"Loading selections for debug menu: {Items.Count} items");
             for(int i = 0; i < Items.Count; i++)
             {
-                SelectionCells[i] = new SelectionCell(graphicsDevice_, new Vector2(Position.X + 48, Position.Y + 8), Items[i].Data, i + 1);
-                SelectionCells[i].Click += delegate
+                SelectionCells[i] = new SelectionCell(graphicsDevice_, new Vector2(Position.X + 48, Position.Y + 8), Items[i].Data, i + 1)
                 {
-                    Console.WriteLine($"Cell clicked");
-                    SelectedTexture = SelectionCells[i].Texture;
+                    ParentMenu = this,
+                    ObjectTypeID = Items[i].TypeId,
+                    ObjectID = Items[i].Id
                 };
             }
-            SelectedTexture = SelectionCells[0].Texture;
+            SelectedTexture = SelectionCells[1].ObjectTexture;
         }
 
         public void LoadButtons(GraphicsDevice graphicsDevice_, GameContent content_)
@@ -136,7 +138,7 @@ namespace Farm_Prototype.Interface
                 SelectionCells[i].Draw(gameTime, spriteBatch);
                 j++;
             }
-            //spriteBatch.Draw(SelectedTexture, )
+            spriteBatch.Draw(SelectedTexture, PreviewRectangle, Color.White);
         }
 
         public override void Update(GameTime gameTime)
