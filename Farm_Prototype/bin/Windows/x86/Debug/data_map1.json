@@ -5115,8 +5115,8 @@
     "TextureIndex": 2,
     "TileIndex": "11, 18",
     "Position": "-224, 464",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 6,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -5535,7 +5535,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 13,
     "TileIndex": "12, 15",
     "Position": "-96, 432",
     "ContainsInner": false,
@@ -5544,7 +5544,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 18,
     "TileIndex": "12, 16",
     "Position": "-128, 448",
     "ContainsInner": false,
@@ -5553,7 +5553,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 16,
     "TileIndex": "12, 17",
     "Position": "-160, 464",
     "ContainsInner": false,
@@ -5562,7 +5562,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "12, 18",
     "Position": "-192, 480",
     "ContainsInner": false,
@@ -5571,7 +5571,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "12, 19",
     "Position": "-224, 496",
     "ContainsInner": false,
@@ -5589,7 +5589,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "12, 21",
     "Position": "-288, 528",
     "ContainsInner": false,
@@ -5985,7 +5985,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 17,
     "TileIndex": "13, 15",
     "Position": "-64, 448",
     "ContainsInner": false,
@@ -5994,7 +5994,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 10,
     "TileIndex": "13, 16",
     "Position": "-96, 464",
     "ContainsInner": false,
@@ -6003,7 +6003,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 10,
     "TileIndex": "13, 17",
     "Position": "-128, 480",
     "ContainsInner": false,
@@ -6012,7 +6012,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "13, 18",
     "Position": "-160, 496",
     "ContainsInner": false,
@@ -6021,7 +6021,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "13, 19",
     "Position": "-192, 512",
     "ContainsInner": false,
@@ -6030,7 +6030,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "13, 20",
     "Position": "-224, 528",
     "ContainsInner": false,
@@ -6039,7 +6039,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "13, 21",
     "Position": "-256, 544",
     "ContainsInner": false,
@@ -6435,7 +6435,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 15,
     "TileIndex": "14, 15",
     "Position": "-32, 464",
     "ContainsInner": false,
@@ -6444,7 +6444,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 19,
     "TileIndex": "14, 16",
     "Position": "-64, 480",
     "ContainsInner": false,
@@ -6453,7 +6453,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 14,
     "TileIndex": "14, 17",
     "Position": "-96, 496",
     "ContainsInner": false,
@@ -6462,7 +6462,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "14, 18",
     "Position": "-128, 512",
     "ContainsInner": false,
@@ -6471,7 +6471,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 8,
     "TileIndex": "14, 19",
     "Position": "-160, 528",
     "ContainsInner": false,
@@ -6480,7 +6480,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 7,
     "TileIndex": "14, 20",
     "Position": "-192, 544",
     "ContainsInner": false,
@@ -6489,7 +6489,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "14, 21",
     "Position": "-224, 560",
     "ContainsInner": false,
@@ -6498,7 +6498,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 18,
     "TileIndex": "14, 22",
     "Position": "-256, 576",
     "ContainsInner": false,
@@ -6507,7 +6507,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 18,
     "TileIndex": "14, 23",
     "Position": "-288, 592",
     "ContainsInner": false,
@@ -6516,7 +6516,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 18,
     "TileIndex": "14, 24",
     "Position": "-320, 608",
     "ContainsInner": false,
@@ -6525,7 +6525,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 16,
     "TileIndex": "14, 25",
     "Position": "-352, 624",
     "ContainsInner": false,
@@ -6912,7 +6912,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "15, 18",
     "Position": "-96, 528",
     "ContainsInner": false,
@@ -6921,7 +6921,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "15, 19",
     "Position": "-128, 544",
     "ContainsInner": false,
@@ -6930,7 +6930,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "15, 20",
     "Position": "-160, 560",
     "ContainsInner": false,
@@ -6939,7 +6939,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "15, 21",
     "Position": "-192, 576",
     "ContainsInner": false,
@@ -6948,7 +6948,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 17,
     "TileIndex": "15, 22",
     "Position": "-224, 592",
     "ContainsInner": false,
@@ -6957,7 +6957,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 10,
     "TileIndex": "15, 23",
     "Position": "-256, 608",
     "ContainsInner": false,
@@ -6966,7 +6966,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 10,
     "TileIndex": "15, 24",
     "Position": "-288, 624",
     "ContainsInner": false,
@@ -6975,7 +6975,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 20,
     "TileIndex": "15, 25",
     "Position": "-320, 640",
     "ContainsInner": false,
@@ -7347,8 +7347,8 @@
     "TextureIndex": 2,
     "TileIndex": "16, 16",
     "Position": "0, 512",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 12,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -7356,13 +7356,13 @@
     "TextureIndex": 2,
     "TileIndex": "16, 17",
     "Position": "-32, 528",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 12,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "16, 18",
     "Position": "-64, 544",
     "ContainsInner": false,
@@ -7371,7 +7371,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 8,
     "TileIndex": "16, 19",
     "Position": "-96, 560",
     "ContainsInner": false,
@@ -7380,7 +7380,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 7,
     "TileIndex": "16, 20",
     "Position": "-128, 576",
     "ContainsInner": false,
@@ -7389,7 +7389,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "16, 21",
     "Position": "-160, 592",
     "ContainsInner": false,
@@ -7398,7 +7398,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 15,
     "TileIndex": "16, 22",
     "Position": "-192, 608",
     "ContainsInner": false,
@@ -7407,7 +7407,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 19,
     "TileIndex": "16, 23",
     "Position": "-224, 624",
     "ContainsInner": false,
@@ -7416,7 +7416,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 19,
     "TileIndex": "16, 24",
     "Position": "-256, 640",
     "ContainsInner": false,
@@ -7425,7 +7425,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 14,
     "TileIndex": "16, 25",
     "Position": "-288, 656",
     "ContainsInner": false,
@@ -7437,8 +7437,8 @@
     "TextureIndex": 2,
     "TileIndex": "16, 26",
     "Position": "-320, 672",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -7788,8 +7788,8 @@
     "TextureIndex": 2,
     "TileIndex": "17, 15",
     "Position": "64, 512",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -7812,7 +7812,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "17, 18",
     "Position": "-32, 560",
     "ContainsInner": false,
@@ -7821,7 +7821,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "17, 19",
     "Position": "-64, 576",
     "ContainsInner": false,
@@ -7830,7 +7830,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "17, 20",
     "Position": "-96, 592",
     "ContainsInner": false,
@@ -7839,7 +7839,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "17, 21",
     "Position": "-128, 608",
     "ContainsInner": false,
@@ -7869,8 +7869,8 @@
     "TextureIndex": 2,
     "TileIndex": "17, 24",
     "Position": "-224, 656",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -7905,8 +7905,8 @@
     "TextureIndex": 2,
     "TileIndex": "17, 28",
     "Position": "-352, 720",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -7914,8 +7914,8 @@
     "TextureIndex": 2,
     "TileIndex": "17, 29",
     "Position": "-384, 736",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -8262,7 +8262,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "18, 18",
     "Position": "0, 576",
     "ContainsInner": false,
@@ -8271,7 +8271,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 8,
     "TileIndex": "18, 19",
     "Position": "-32, 592",
     "ContainsInner": false,
@@ -8280,7 +8280,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 7,
     "TileIndex": "18, 20",
     "Position": "-64, 608",
     "ContainsInner": false,
@@ -8289,7 +8289,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "18, 21",
     "Position": "-96, 624",
     "ContainsInner": false,
@@ -8337,8 +8337,8 @@
     "TextureIndex": 2,
     "TileIndex": "18, 26",
     "Position": "-256, 704",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -8364,8 +8364,8 @@
     "TextureIndex": 2,
     "TileIndex": "18, 29",
     "Position": "-352, 752",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -8373,8 +8373,8 @@
     "TextureIndex": 2,
     "TileIndex": "18, 30",
     "Position": "-384, 768",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -8706,13 +8706,13 @@
     "TextureIndex": 2,
     "TileIndex": "19, 17",
     "Position": "64, 576",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 11,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "19, 18",
     "Position": "32, 592",
     "ContainsInner": false,
@@ -8721,7 +8721,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "19, 19",
     "Position": "0, 608",
     "ContainsInner": false,
@@ -8730,7 +8730,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 4,
     "TileIndex": "19, 20",
     "Position": "-32, 624",
     "ContainsInner": false,
@@ -8739,7 +8739,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "19, 21",
     "Position": "-64, 640",
     "ContainsInner": false,
@@ -8805,8 +8805,8 @@
     "TextureIndex": 2,
     "TileIndex": "19, 28",
     "Position": "-288, 752",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -9162,7 +9162,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "20, 18",
     "Position": "64, 608",
     "ContainsInner": false,
@@ -9171,7 +9171,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 8,
     "TileIndex": "20, 19",
     "Position": "32, 624",
     "ContainsInner": false,
@@ -9180,7 +9180,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 7,
     "TileIndex": "20, 20",
     "Position": "0, 640",
     "ContainsInner": false,
@@ -9189,7 +9189,7 @@
     "NpcIndex": 0
   },
   {
-    "TextureIndex": 2,
+    "TextureIndex": 5,
     "TileIndex": "20, 21",
     "Position": "-32, 656",
     "ContainsInner": false,
@@ -9246,8 +9246,8 @@
     "TextureIndex": 2,
     "TileIndex": "20, 27",
     "Position": "-224, 752",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 3,
     "ContainsNPC": false,
     "NpcIndex": 0
   },
@@ -9642,8 +9642,8 @@
     "TextureIndex": 2,
     "TileIndex": "21, 21",
     "Position": "0, 672",
-    "ContainsInner": false,
-    "InnerTextureIndex": 0,
+    "ContainsInner": true,
+    "InnerTextureIndex": 11,
     "ContainsNPC": false,
     "NpcIndex": 0
   },

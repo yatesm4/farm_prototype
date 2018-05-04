@@ -179,3 +179,11 @@ C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototyp
 C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Green.xnb
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Black.xnb
 C:\_SourceControl\SELF\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\UI\UI_Arrow_Green.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_E.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_N.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_NE.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_NW.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_S.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_SE.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_SW.xnb
+C:\_DEV\YESTERDAY_DEVELOPMENT\WEED_FARM\PROTOTYPING\farm_prototype\Farm_Prototype\bin\Windows\x86\Debug\Content\Sprites\Environment\Structures\Room_00_Wall_W.xnb

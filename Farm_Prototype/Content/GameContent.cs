@@ -208,6 +208,14 @@ namespace Farm_Prototype.Content
             {
                 TypeId = 1
             });
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_N", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_S", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_E", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_W", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_NE", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_NW", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_SE", _content));
+            TileTextures.Add(new ContentData<Texture2D>(i++, "Sprites/Environment/Structures/Room_00_Wall_SW", _content));
 
             Console.WriteLine($"Tile Textures: {i}");
         }
